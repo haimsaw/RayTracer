@@ -1,6 +1,6 @@
 package RayTracing;
 
-
+import java.awt.*;
 import java.awt.color.*;
 import java.awt.image.*;
 import java.io.BufferedReader;
