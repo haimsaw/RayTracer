@@ -21,8 +21,11 @@ class Camera {
         this.screenUpperLeft = this.calcScreenCoroner();
     }
 
-    public getRay(int hight, int whidth){
+    public Ray getRay(int down, int right){
+        MyVector rightShift = this.left.multiply(-1*right);
+        MyVector downShift = this.up.multiply(-1*down);
 
+        return new Ray(this.position, this.screenUpperLeft.add(rightShift.add(downShift)));
 
     }
 
