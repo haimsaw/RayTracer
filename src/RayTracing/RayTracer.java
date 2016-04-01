@@ -1,5 +1,7 @@
 package RayTracing;
 
+import sun.security.mscapi.KeyStore;
+
 import java.awt.*;
 import java.awt.color.*;
 import java.awt.image.*;
@@ -166,6 +168,17 @@ public class RayTracer {
 
         // Create a byte array to hold the pixel data:
         byte[] rgbData = new byte[this.imageWidth * this.imageHeight * 3];
+
+        int i,j;
+        for (i=0; i < camera.screen_height; i++){
+            for (j=0; j<camera.screen_width; j++){
+                Ray ray = camera.getRay(i,j);
+                //costruct ray
+                //get intersection
+                //get color
+
+            }
+        }
 
 
         // Put your ray tracing code here!

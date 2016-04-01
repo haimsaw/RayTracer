@@ -10,6 +10,7 @@ public abstract class Surface {
     };
 
     public abstract List<MyVector> get_intersections();
+    public abstract MyVector get_normal(MyVector point);
 
 }
 
