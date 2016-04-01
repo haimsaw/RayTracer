@@ -1,4 +1,6 @@
-public class Camera {
+package RayTracing;
+
+class Camera {
     public MyVector position;
     public MyVector look_at;
     public MyVector up;

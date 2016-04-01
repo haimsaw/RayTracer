@@ -1,6 +1,6 @@
 package RayTracing;
 
-import java.awt.Transparency;
+import java.awt.*;
 import java.awt.color.*;
 import java.awt.image.*;
 import java.io.BufferedReader;
@@ -19,6 +19,9 @@ public class RayTracer {
 
     public int imageWidth;
     public int imageHeight;
+    public List<Shape> shapes;
+    public List<Light> lights;
+    public Camera camera;
 
     /**
      * Runs the ray tracer. Takes scene file, output image file and image size as input.
