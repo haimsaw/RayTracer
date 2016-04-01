@@ -1,14 +1,15 @@
 package RayTracing;
 
 
-import java.awt.*;
 import java.awt.color.*;
 import java.awt.image.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -20,7 +21,7 @@ public class RayTracer {
 
     public int imageWidth;
     public int imageHeight;
-    public List<Shape> shapes;
+    public List<Surface> surfaces;
     public List<Light> lights;
     public Camera camera;
 
@@ -161,28 +162,26 @@ public class RayTracer {
     /**
      * Renders the loaded scene and saves it to the specified file location.
      */
-    public void renderScene(String outputFileName)
-    {
+    public void renderScene(String outputFileName) {
         long startTime = System.currentTimeMillis();
 
         // Create a byte array to hold the pixel data:
         byte[] rgbData = new byte[this.imageWidth * this.imageHeight * 3];
 
-        int height,width;
-        for (height=0; height < camera.screen_height; height++){
-            for (width=0; width<camera.screen_width; width++){
-                Ray ray = camera.getRay(height,width);
-                this.getIntersection(ray)
+        int height, width;
+        for (height = 0; height < camera.screen_height; height++) {
+            for (width = 0; width < camera.screen_width; width++) {
+                Ray ray = camera.getRay(height, width);
+                Intersection intersection =  this.getIntersection(ray);
                 //get color
 
             }
         }
 
-        private Intersection getIntersection(Ray ray){
-
-    }
 
 
+
+        /**
         // Put your ray tracing code here!
         //
         // Write pixel Color values in Color format to rgbData:
@@ -192,7 +191,8 @@ public class RayTracer {
         //
         // Each of the red, green and blue components should be a byte, i.e. 0-255
 
-
+        **/
+        //<editor-fold desc="end">
         long endTime = System.currentTimeMillis();
         Long renderTime = endTime - startTime;
 
@@ -204,12 +204,29 @@ public class RayTracer {
         saveImage(this.imageWidth, rgbData, outputFileName);
 
         System.out.println("Saved file " + outputFileName);
+        //</editor-fold>
 
     }
 
 
+    private Intersection getIntersection(Ray ray) {
+        LinkedList<Intersection> intersections = new LinkedList<>();
+        for (Surface surface : this.surfaces){
+            intersections.addAll(surface.get_intersections(ray));
+        }
+        return Collections.min(intersections,
+                //comparator
+                (o1, o2) -> {
+                    MyVector cameraPos = camera.position;
+                    float delta = o1.getPosition().distanse(cameraPos) - o2.getPosition().distanse(cameraPos);
+                    if (delta < 0){
+                        return  -1;
+                    }
+                    return 1;
+                });
+    }
 
-
+    //<editor-fold desc="SaveImage">
     //////////////////////// FUNCTIONS TO SAVE IMAGES IN PNG FORMAT //////////////////////////////////////////
 
     /*
@@ -247,6 +264,9 @@ public class RayTracer {
     public static class RayTracerException extends Exception {
         public RayTracerException(String msg) {  super(msg); }
     }
-
+    //</editor-fold>
 
 }
+
+
+

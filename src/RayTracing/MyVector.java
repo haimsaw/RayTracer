@@ -44,6 +44,12 @@ public class MyVector {
         return new MyVector(x, y, z);
     }
 
+    public float distanse(MyVector other){
+        MyVector tmp = this.subtract(other);
+        // removed sqrt for time saving
+        return tmp.get_x()*tmp.get_x() +tmp.get_y()*tmp.get_y()+tmp.get_z()*tmp.get_z();
+    }
+
     public float get_x() {
         return this.x;
     }
