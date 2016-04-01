@@ -22,7 +22,7 @@ class Camera {
     }
 
     public getRay(int hight, int whidth){
-        //cant calc corner and add - camera is not alignid
+
 
     }
 
@@ -31,7 +31,7 @@ class Camera {
         MyVector upShift = this.up.multiply(this.screen_height/2);
         MyVector leftSift = this.left.multiply(this.screen_width/2);
 
-        return this.position.add(forewordShift.add(upShift.add(leftSift))) //position + shiftUp + shiftLeft + shiftForword
+        return this.position.add(forewordShift.add(upShift.add(leftSift))); //position + shiftUp + shiftLeft + shiftForword
 
     }
 }

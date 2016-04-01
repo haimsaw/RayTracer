@@ -37,6 +37,13 @@ public class MyVector {
         return new MyVector(x, y, z);
     }
 
+    public MyVector substract(MyVector other){
+        float x = this.get_x() - other.get_x();
+        float y = this.get_y() - other.get_y();
+        float z = this.get_z() - other.get_z();
+        return new MyVector(x, y, z);
+    }
+
 
 
 
