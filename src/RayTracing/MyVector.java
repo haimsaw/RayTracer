@@ -37,16 +37,12 @@ public class MyVector {
         return new MyVector(x, y, z);
     }
 
-    public MyVector substract(MyVector other){
+    public MyVector subtract(MyVector other){
         float x = this.get_x() - other.get_x();
         float y = this.get_y() - other.get_y();
         float z = this.get_z() - other.get_z();
         return new MyVector(x, y, z);
     }
-
-
-
-
 
     public float get_x() {
         return this.x;
@@ -59,7 +55,7 @@ public class MyVector {
     public float get_z() {
         return this.z;
     }
-
+    /**
     public void set_x(int x) {
         this.x = x;
     }
@@ -71,6 +67,7 @@ public class MyVector {
     public void set_z(int z) {
         this.z = z;
     }
+    **/
 
 
 }
