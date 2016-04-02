@@ -7,8 +7,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -180,8 +178,8 @@ public class RayTracer {
         for (height = 0; height < camera.screen_height; height++) {
             for (width = 0; width < camera.screen_width; width++) {
                 Ray ray = camera.getRay(height, width);
-                Intersection intersection =  this.getClosestIntersection(ray);
-                Color color = intersection.getColor();
+                Intersection intersection =  ray.getClosestIntersection(this.surfaces);
+                //Color color = intersection.getColor();
 
                 //get color
 
@@ -218,21 +216,6 @@ public class RayTracer {
 
     }
 
-
-    private Intersection getClosestIntersection(Ray ray) {
-        LinkedList<Intersection> intersections = new LinkedList<>();
-        for (Surface surface : this.surfaces){
-            intersections.addAll(surface.get_intersections(ray));
-        }
-        return Collections.min(intersections, (o1, o2) -> {
-                    MyVector cameraPos = camera.position;
-                    float delta = o1.getPosition().distanse(cameraPos) - o2.getPosition().distanse(cameraPos);
-                    if (delta < 0){
-                        return  -1;
-                    }
-                    return 1;
-                });
-    }
 
     //<editor-fold desc="SaveImage">
     //////////////////////// FUNCTIONS TO SAVE IMAGES IN PNG FORMAT //////////////////////////////////////////

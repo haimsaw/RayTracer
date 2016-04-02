@@ -18,6 +18,7 @@ public class MyVector {
         this.z = end.get_z() - start.get_z();
     }
 
+    //<editor-fold desc="vectors math">
     public MyVector crossProduct(MyVector other){
         float x = this.get_y()*other.get_z() - this.get_z()*other.get_y();
         float y = this.get_z()*other.get_x() - this.get_x()*other.get_z();
@@ -28,7 +29,6 @@ public class MyVector {
     public MyVector multiply(float scalar){
         return new MyVector(this.x*scalar, this.y*scalar, this.z*scalar);
     }
-
 
     public MyVector add(MyVector other) {
         float x = this.get_x() + other.get_x();
@@ -44,11 +44,17 @@ public class MyVector {
         return new MyVector(x, y, z);
     }
 
-    public float distanse(MyVector other){
+    public float distance(MyVector other){
         MyVector tmp = this.subtract(other);
         // removed sqrt for time saving
         return tmp.get_x()*tmp.get_x() +tmp.get_y()*tmp.get_y()+tmp.get_z()*tmp.get_z();
     }
+
+    public float dotProduct(MyVector other){
+        return this.get_x()*other.get_x() + this.get_y()*other.get_y() + this.get_z()*other.get_z();
+    }
+
+    //</editor-fold>
 
     public float get_x() {
         return this.x;
