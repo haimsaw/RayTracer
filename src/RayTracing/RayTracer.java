@@ -23,6 +23,9 @@ public class RayTracer {
     public List<Surface> surfaces;
     public List<Light> lights;
     public Camera camera;
+    public Color backgroundColor;
+    public int ShadowRaysAmount;
+    public int maxRecursion;
 
     /**
      * Runs the ray tracer. Takes scene file, output image file and image size as input.
@@ -98,13 +101,19 @@ public class RayTracer {
 
                 if (code.equals("cam"))
                 {
-                    // Add code here to parse camera parameters
+                    camera = Factory.cameraCreator(params); // TODO make sure image width = screen width
 
                     System.out.println(String.format("Parsed camera parameters (line %d)", lineNum));
                 }
                 else if (code.equals("set"))
                 {
-                    // Add code here to parse general settings parameters
+                    float red, green, blue;
+                    red = Integer.parseInt(params[0]);
+                    green = Integer.parseInt(params[1]);
+                    blue = Integer.parseInt(params[2]);
+                    backgroundColor = new Color(red, green, blue);
+                    public int ShadowRaysAmount;
+                    public int maxRecursion;
 
                     System.out.println(String.format("Parsed general settings (line %d)", lineNum));
                 }
