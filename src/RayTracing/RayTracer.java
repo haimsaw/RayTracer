@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -80,7 +81,7 @@ public class RayTracer {
         int lineNum = 0;
         System.out.println("Started parsing scene file " + sceneFileName);
 
-
+        List<Material> materialsList = new ArrayList<Material>();
 
         while ((line = r.readLine()) != null)
         {
@@ -99,8 +100,7 @@ public class RayTracer {
 
                 if (code.equals("cam"))
                 {
-                    camera = Factory.cameraCreator(params); // TODO make sure image width = screen width
-
+                    camera = Factory.createCamera(params, imageHeight, imageWidth); // TODO make sure image width = screen width
                     System.out.println(String.format("Parsed camera parameters (line %d)", lineNum));
                 }
                 else if (code.equals("set"))
@@ -110,20 +110,18 @@ public class RayTracer {
                     green = Integer.parseInt(params[1]);
                     blue = Integer.parseInt(params[2]);
                     backgroundColor = new Color(red, green, blue);
-                    public int ShadowRaysAmount;
-                    public int maxRecursion;
-
+                    ShadowRaysAmount = Integer.parseInt(params[3]);
+                    maxRecursion = Integer.parseInt(params[4]);
                     System.out.println(String.format("Parsed general settings (line %d)", lineNum));
                 }
                 else if (code.equals("mtl"))
                 {
-                    // Add code here to parse material parameters
-
+                    materialsList.add(Factory.createMaterial(params));
                     System.out.println(String.format("Parsed material (line %d)", lineNum));
                 }
                 else if (code.equals("sph"))
                 {
-                    // Add code here to parse sphere parameters
+                    surfaces.add(Factory.createSphere(params, materialsList));
 
                     // Example (you can implement this in many different ways!):
                     // Sphere sphere = new Sphere();
