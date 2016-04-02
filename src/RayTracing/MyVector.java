@@ -29,7 +29,6 @@ public class MyVector {
         return new MyVector(this.x*scalar, this.y*scalar, this.z*scalar);
     }
 
-
     public MyVector add(MyVector other) {
         float x = this.get_x() + other.get_x();
         float y = this.get_y() + other.get_y();
@@ -44,7 +43,7 @@ public class MyVector {
         return new MyVector(x, y, z);
     }
 
-    public float distanse(MyVector other){
+    public float distance(MyVector other){
         MyVector tmp = this.subtract(other);
         // removed sqrt for time saving
         return tmp.get_x()*tmp.get_x() +tmp.get_y()*tmp.get_y()+tmp.get_z()*tmp.get_z();

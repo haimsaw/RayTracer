@@ -21,4 +21,5 @@ public class Intersection {
     public Color getColor(){
 
     }
+
 }
