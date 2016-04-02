@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -172,7 +171,9 @@ public class RayTracer {
         for (height = 0; height < camera.screen_height; height++) {
             for (width = 0; width < camera.screen_width; width++) {
                 Ray ray = camera.getRay(height, width);
-                Intersection intersection =  this.getIntersection(ray);
+                Intersection intersection =  this.getClosestIntersection(ray);
+                Color color = intersection.getColor();
+
                 //get color
 
             }
@@ -209,14 +210,12 @@ public class RayTracer {
     }
 
 
-    private Intersection getIntersection(Ray ray) {
+    private Intersection getClosestIntersection(Ray ray) {
         LinkedList<Intersection> intersections = new LinkedList<>();
         for (Surface surface : this.surfaces){
             intersections.addAll(surface.get_intersections(ray));
         }
-        return Collections.min(intersections,
-                //comparator
-                (o1, o2) -> {
+        return Collections.min(intersections, (o1, o2) -> {
                     MyVector cameraPos = camera.position;
                     float delta = o1.getPosition().distanse(cameraPos) - o2.getPosition().distanse(cameraPos);
                     if (delta < 0){
