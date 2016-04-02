@@ -54,6 +54,10 @@ public class MyVector {
         return this.get_x()*other.get_x() + this.get_y()*other.get_y() + this.get_z()*other.get_z();
     }
 
+    public MyVector projectTo(MyVector other){
+        return other.multiply(this.dotProduct(other));
+    }
+
     //</editor-fold>
 
     public float get_x() {
