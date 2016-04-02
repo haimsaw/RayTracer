@@ -69,6 +69,11 @@ public class RayTracer {
 
     }
 
+    public RayTracer() {
+        this.surfaces = new ArrayList<Surface>();
+        this.lights = new ArrayList<Light>();
+    }
+
     /**
      * Parses the scene file and creates the scene. Change this function so it generates the required objects.
      */
@@ -106,9 +111,9 @@ public class RayTracer {
                 else if (code.equals("set"))
                 {
                     float red, green, blue;
-                    red = Integer.parseInt(params[0]);
-                    green = Integer.parseInt(params[1]);
-                    blue = Integer.parseInt(params[2]);
+                    red = Float.parseFloat(params[0]);
+                    green = Float.parseFloat(params[1]);
+                    blue = Float.parseFloat(params[2]);
                     backgroundColor = new Color(red, green, blue);
                     ShadowRaysAmount = Integer.parseInt(params[3]);
                     maxRecursion = Integer.parseInt(params[4]);
@@ -145,6 +150,7 @@ public class RayTracer {
                 else if (code.equals("lgt"))
                 {
                     Light light = Factory.createLight(params);
+                    lights.add(light);
                     System.out.println(String.format("Parsed light (line %d)", lineNum));
                 }
                 else
@@ -175,7 +181,7 @@ public class RayTracer {
             for (width = 0; width < camera.screen_width; width++) {
                 Ray ray = camera.getRay(height, width);
                 Intersection intersection =  ray.getClosestIntersection(this.surfaces);
-                //Color color = intersection.getColor();
+                Color color = intersection.getColor();
 
                 //get color
 

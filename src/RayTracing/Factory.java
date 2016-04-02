@@ -69,7 +69,7 @@ class Factory {
         matIndex = Integer.parseInt(params[4]);
         radious = Float.parseFloat(params[3]);
 
-        Material material = materialsList.get(matIndex);
+        Material material = materialsList.get(matIndex-1);
         MyVector center = new MyVector(centerX, centerY, centerZ);
 
         sphere = new Sphere(center, radious, material);
@@ -89,7 +89,7 @@ class Factory {
         matIndx = Integer.parseInt(params[4]);
 
         MyVector normal = new MyVector(normalX, normalY, normalZ);
-        Material material = materialsList.get(matIndx);
+        Material material = materialsList.get(matIndx- 1);
 
         plane = new Plane(normal, offset, material);
         return plane;
@@ -104,17 +104,17 @@ class Factory {
 
         centerX = Float.parseFloat(params[0]);
         centerY = Float.parseFloat(params[1]);
-        centerZ = Float.parseFloat(params[3]);
-        length = Float.parseFloat(params[4]);
-        radius = Float.parseFloat(params[5]);
-        rotationX = Float.parseFloat(params[6]);
-        rotationY = Float.parseFloat(params[7]);
-        rotationZ = Float.parseFloat(params[8]);
-        matIndex = Integer.parseInt(params[9]);
+        centerZ = Float.parseFloat(params[2]);
+        length = Float.parseFloat(params[3]);
+        radius = Float.parseFloat(params[4]);
+        rotationX = Float.parseFloat(params[5]);
+        rotationY = Float.parseFloat(params[6]);
+        rotationZ = Float.parseFloat(params[7]);
+        matIndex = Integer.parseInt(params[8]);
 
         centerPosition = new MyVector(centerX, centerY, centerZ);
         rotation = new MyVector(rotationX, rotationY, rotationZ);
-        material = materialList.get(matIndex);
+        material = materialList.get(matIndex - 1);
 
         cylinder = new Cylinder(centerPosition, length, radius, rotation, material);
         return cylinder;
