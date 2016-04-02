@@ -121,32 +121,30 @@ public class RayTracer {
                 }
                 else if (code.equals("sph"))
                 {
-                    surfaces.add(Factory.createSphere(params, materialsList));
-
+                    Sphere sphere = Factory.createSphere(params, materialsList);
+                    surfaces.add(sphere);
                     // Example (you can implement this in many different ways!):
                     // Sphere sphere = new Sphere();
                     // sphere.setCenter(params[0], params[1], params[2]);
                     // sphere.setRadius(params[3]);
                     // sphere.setMaterial(params[4]);
-
                     System.out.println(String.format("Parsed sphere (line %d)", lineNum));
                 }
                 else if (code.equals("pln"))
                 {
-                    // Add code here to parse plane parameters
-
+                    Plane plane = Factory.createPlane(params, materialsList);
+                    surfaces.add(plane);
                     System.out.println(String.format("Parsed plane (line %d)", lineNum));
                 }
                 else if (code.equals("cyl"))
                 {
-                    // Add code here to parse cylinder parameters
-
+                    Cylinder cylinder = Factory.createCylinder(params, materialsList);
+                    surfaces.add(cylinder);
                     System.out.println(String.format("Parsed cylinder (line %d)", lineNum));
                 }
                 else if (code.equals("lgt"))
                 {
-                    // Add code here to parse light parameters
-
+                    Light light = Factory.createLight(params);
                     System.out.println(String.format("Parsed light (line %d)", lineNum));
                 }
                 else
