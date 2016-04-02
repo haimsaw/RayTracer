@@ -1,13 +1,14 @@
 package RayTracing;
 
-
 public class Intersection {
     private Surface surface;
     private MyVector position;
+    private MyVector direction;
 
-    public Intersection(Surface surface, MyVector position) {
+    public Intersection(Surface surface, MyVector position, MyVector rayDirection) {
         this.surface = surface;
         this.position = position;
+        this.direction = rayDirection.multiply(-1);
     }
 
     public Surface getSurface() {
@@ -26,13 +27,16 @@ public class Intersection {
     private Color diffuseColor(Light light){
         MyVector directionToLight = new MyVector(position, light.position);
         float intensity = surface.get_normal(position).dotProduct(directionToLight);
-        Color diffuseColor = light.color.multiply(surface.material.defuse_color).multiply(intensity);
-        return diffuseColor;
+        return light.color.multiply(surface.material.defuse_color).multiply(intensity);
     }
 
     private Color specularColor(Light light){
-        // todo
-        return new Color(0,0,0);
+        MyVector directionToLight = new MyVector(position, light.position);
+        MyVector normal = surface.get_normal(position);
+        MyVector reflectionDirection =(directionToLight.multiply(2).projectTo(normal)).subtract(directionToLight);
+        float intensity = light.specularIntensity*
+                (float) Math.pow(reflectionDirection.dotProduct(direction), surface.material.phong_coefficient);
+        return surface.material.specular_color.multiply(light.color).multiply(intensity);
     }
 
     //</editor-fold>
