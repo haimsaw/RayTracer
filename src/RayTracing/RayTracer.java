@@ -170,7 +170,7 @@ public class RayTracer {
             for (width = 0; width < camera.screen_width; width++) {
                 Ray ray = camera.getRay(height, width);
                 Intersection intersection =  ray.getClosestIntersection(this.surfaces);
-                Color color = intersection.getColor();
+                //Color color = intersection.getColor();
 
                 //get color
 

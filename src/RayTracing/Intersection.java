@@ -18,8 +18,11 @@ public class Intersection {
         return position;
     }
 
-    public Color getColor(){
-
+    //<editor-fold desc="colors parts">
+    private Color AmbiantColor(){
+        // todo need to compute?
+        return new Color(0,0,0);
     }
+    //</editor-fold>
 
 }
