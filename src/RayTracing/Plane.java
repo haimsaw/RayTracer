@@ -20,6 +20,6 @@ public class Plane extends Surface {
 
     @Override
     public MyVector get_normal(MyVector point) {
-        return null;
+        return normal;
     }
 }

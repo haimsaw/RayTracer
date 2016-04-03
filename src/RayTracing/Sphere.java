@@ -21,6 +21,6 @@ public class Sphere extends Surface {
 
     @Override
     public MyVector get_normal(MyVector point) {
-        return null;
+        return new MyVector(position, point);
     }
 }

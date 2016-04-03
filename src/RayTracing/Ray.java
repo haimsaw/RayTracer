@@ -15,6 +15,7 @@ public class Ray {
     }
 
     Intersection getClosestIntersection(List<Surface> surfaces ) {
+        //todo no intersection
         LinkedList<Intersection> intersections = new LinkedList<>();
         for (Surface surface : surfaces){
             intersections.addAll(surface.get_intersections(this));
