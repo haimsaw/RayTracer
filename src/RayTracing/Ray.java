@@ -9,6 +9,16 @@ public class Ray {
     private MyVector direction;
     private MyVector startPoint;
 
+    //<editor-fold desc="getters and setters">
+    public MyVector getDirection() {
+        return direction;
+    }
+
+    public MyVector getStartPoint() {
+        return startPoint;
+    }
+    //</editor-fold>
+
     public Ray(MyVector startPoint, MyVector endPoint) {
         this.direction = endPoint.subtract(startPoint);
         this.startPoint = startPoint;
@@ -18,7 +28,7 @@ public class Ray {
         //todo no intersection
         LinkedList<Intersection> intersections = new LinkedList<>();
         for (Surface surface : surfaces){
-            intersections.addAll(surface.get_intersections(this));
+            intersections.addAll(surface.getIntersections(this));
         }
         return Collections.min(intersections,
                     (o1, o2) -> {

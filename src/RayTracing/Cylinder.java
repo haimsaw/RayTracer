@@ -17,7 +17,7 @@ public class Cylinder extends Surface {
     }
 
     @Override
-    public List<Intersection> get_intersections(Ray ray) {
+    public List<Intersection> getIntersections(Ray ray) {
         return null;
     }
 

@@ -9,7 +9,7 @@ public abstract class Surface {
         this.material = material;
     };
 
-    public abstract List<Intersection> get_intersections(Ray ray);
+    public abstract List<Intersection> getIntersections(Ray ray);
     public abstract MyVector get_normal(MyVector point);
 
 }

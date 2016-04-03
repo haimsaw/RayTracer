@@ -5,6 +5,13 @@ public class Intersection {
     private MyVector position;
     private MyVector direction;
 
+
+    /**
+     *
+     * @param surface
+     * @param position assumes position is on the surface!!!!
+     * @param rayDirection
+     */
     public Intersection(Surface surface, MyVector position, MyVector rayDirection) {
         this.surface = surface;
         this.position = position;

@@ -1,5 +1,6 @@
 package RayTracing;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Plane extends Surface {
@@ -14,8 +15,22 @@ public class Plane extends Surface {
     }
 
     @Override
-    public List<Intersection> get_intersections(Ray ray) {
-        return null;
+    public List<Intersection> getIntersections(Ray ray) {
+        LinkedList<Intersection> intersections = new LinkedList<Intersection>();
+        /**
+         * intersection - ray.start = lambda*ray.direction
+         * intersection dot this.normal = this.offset
+         *
+         * ->
+         * lambda = (this.offset - ray.start dot this.normal)/ray.diration dot this.normal
+         * intersection = lambda*ray.direction + ray.start
+         */
+
+        float lambda = (this.offset - ray.getStartPoint().dotProduct(normal))/(ray.getDirection().dotProduct(normal));
+        MyVector intersectionPoint = ray.getStartPoint().add(ray.getDirection().multiply(lambda));
+        Intersection intersection = new Intersection(this,intersectionPoint, ray.getDirection());
+        intersections.add(intersection);
+        return intersections;
     }
 
     @Override
