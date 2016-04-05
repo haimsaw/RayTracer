@@ -25,6 +25,7 @@ public class RayTracer {
     public Color backgroundColor;
     public int ShadowRaysAmount;
     public int maxRecursion;
+    public float screenToImageRatio;
 
     /**
      * Runs the ray tracer. Takes scene file, output image file and image size as input.
@@ -160,6 +161,8 @@ public class RayTracer {
             }
         }
 
+        this.screenToImageRatio = camera.screen_height/this.imageHeight;
+
         // It is recommended that you check here that the scene is valid,
         // for example camera settings and all necessary materials were defined.
 
@@ -177,11 +180,14 @@ public class RayTracer {
         byte[] rgbData = new byte[this.imageWidth * this.imageHeight * 3];
 
         int height, width;
-        for (height = 0; height < camera.screen_height; height++) {
-            for (width = 0; width < camera.screen_width; width++) {
-                Ray ray = camera.getRay(height, width);
+        for (height = 0; height < imageHeight; height++) {
+            for (width = 0; width < imageWidth; width++) {
+                Color color;
+                Ray ray = camera.getRay(height, width, screenToImageRatio);
                 Intersection intersection =  ray.getClosestIntersection(this.surfaces);
-                Color color = intersection.getColor();
+                System.out.println(intersection.getSurface());
+                color = intersection != null ? intersection.getColor(lights) : this.backgroundColor;
+                this.setData(height, width, color, rgbData);
 
                 //get color
 
@@ -215,6 +221,14 @@ public class RayTracer {
 
         System.out.println("Saved file " + outputFileName);
         //</editor-fold>
+
+    }
+
+    private void setData(int height, int width, Color color, byte[] rgbData) {
+        int startPosition = 3*(width*this.imageWidth +height);
+        rgbData [startPosition] = (byte) (color.getRed()*255);
+        rgbData [startPosition + 1] = (byte) (color.getGreen()*255);
+        rgbData [startPosition + 2] = (byte) (color.getBlue()*255);
 
     }
 

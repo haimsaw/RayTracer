@@ -19,7 +19,7 @@ class Factory {
         uz = Float.parseFloat(params[8]);
 
         MyVector position = new MyVector(px, py, pz);
-        MyVector lookAt = new MyVector(lx, ly, lz);
+        MyVector lookAt = new MyVector(lx, ly, lz).subtract(position);
         MyVector up = new MyVector(ux, uy, uz);
 
         screenDistance = Float.parseFloat(params[9]);

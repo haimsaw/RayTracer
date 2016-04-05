@@ -30,6 +30,9 @@ public class Ray {
         for (Surface surface : surfaces){
             intersections.addAll(surface.getIntersections(this));
         }
+        if (intersections.isEmpty()){
+            return null;
+        }
         return Collections.min(intersections,
                     (o1, o2) -> {
                     float delta = o1.getPosition().distance(this.startPoint) - o2.getPosition().distance(this.startPoint);

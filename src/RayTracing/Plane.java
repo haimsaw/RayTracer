@@ -27,6 +27,9 @@ public class Plane extends Surface {
          */
 
         float lambda = (this.offset - ray.getStartPoint().dotProduct(normal))/(ray.getDirection().dotProduct(normal));
+        if (lambda<0){
+            return intersections;
+        }
         MyVector intersectionPoint = ray.getStartPoint().add(ray.getDirection().multiply(lambda));
         Intersection intersection = new Intersection(this,intersectionPoint, ray.getDirection());
         intersections.add(intersection);

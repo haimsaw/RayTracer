@@ -12,7 +12,7 @@ class Camera {
 
     public Camera(MyVector position, MyVector lookAt, MyVector up, float screen_distance, float screen_width, float screen_hight) {
         this.position = position;
-        this.lookAt = lookAt;
+        this.lookAt = lookAt;//.subtract(position);
         this.up = up;
         this.screen_distance = screen_distance;
         this.screen_width = screen_width;
@@ -21,9 +21,9 @@ class Camera {
         this.screenUpperLeft = this.calcScreenCoroner();
     }
 
-    public Ray getRay(int down, int right){
-        MyVector rightShift = this.left.multiply(-1*right);
-        MyVector downShift = this.up.multiply(-1*down);
+    public Ray getRay(int down, int right, float screenToImageRatio){
+        MyVector rightShift = this.left.multiply(-1*right*screenToImageRatio);
+        MyVector downShift = this.up.multiply(-1*down*screenToImageRatio);
 
         return new Ray(this.position, this.screenUpperLeft.add(rightShift.add(downShift)));
 

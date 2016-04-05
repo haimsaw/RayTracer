@@ -47,7 +47,7 @@ public class MyVector {
     public float distance(MyVector other){
         MyVector tmp = this.subtract(other);
         // removed sqrt for time saving
-        return tmp.get_x()*tmp.get_x() +tmp.get_y()*tmp.get_y()+tmp.get_z()*tmp.get_z();
+        return this.subtract(other).getLength();
     }
 
     public float dotProduct(MyVector other){
@@ -58,6 +58,18 @@ public class MyVector {
         return other.multiply(this.dotProduct(other));
     }
 
+    public float getLength(){
+        return (float) Math.sqrt((float) this.dotProduct(this));
+    }
+
+    public MyVector getNormalizedVector(){
+        float len = this.getLength();
+        return this.multiply(1/len);
+    }
+
+    public float getAbsCosAngel(MyVector other){
+        return Math.abs(this.getNormalizedVector().dotProduct(other.getNormalizedVector()));
+    }
     //</editor-fold>
 
     public float get_x() {
