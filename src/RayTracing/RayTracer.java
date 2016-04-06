@@ -185,8 +185,8 @@ public class RayTracer {
                 Color color;
                 Ray ray = camera.getRay(height, width, screenToImageRatio);
                 Intersection intersection =  ray.getClosestIntersection(this.surfaces);
-                System.out.println(intersection.getSurface());
                 color = intersection != null ? intersection.getColor(lights) : this.backgroundColor;
+                //System.out.println(width);
                 this.setData(height, width, color, rgbData);
 
                 //get color
