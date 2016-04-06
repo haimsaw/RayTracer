@@ -12,12 +12,14 @@ class Camera {
 
     public Camera(MyVector position, MyVector lookAt, MyVector up, float screen_distance, float screen_width, float screen_hight) {
         this.position = position;
-        this.lookAt = lookAt;//.subtract(position);
-        this.up = up;
+
+
         this.screen_distance = screen_distance;
         this.screen_width = screen_width;
         this.screen_height = screen_hight;
         this.left = up.crossProduct(lookAt);
+        this.lookAt = lookAt;
+        this.up = lookAt.crossProduct(left);
         this.screenUpperLeft = this.calcScreenCoroner();
     }
 
