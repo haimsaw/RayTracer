@@ -185,11 +185,9 @@ public class RayTracer {
                 Color color;
                 Ray ray = camera.getRay(height, width, screenToImageRatio);
                 Intersection intersection =  ray.getClosestIntersection(this.surfaces);
-                color = intersection != null ? intersection.getColor(lights) : this.backgroundColor;
-                //System.out.println(width);
+                color = intersection != null ? new ColorCalculator(intersection).getColor(lights) : backgroundColor;
                 this.setData(height, width, color, rgbData);
 
-                //get color
 
             }
         }
@@ -225,7 +223,7 @@ public class RayTracer {
     }
 
     private void setData(int height, int width, Color color, byte[] rgbData) {
-        int startPosition = 3*(width*this.imageWidth +height);
+        int startPosition = 3*(height*this.imageWidth +width);
         rgbData [startPosition] = (byte) (color.getRed()*255);
         rgbData [startPosition + 1] = (byte) (color.getGreen()*255);
         rgbData [startPosition + 2] = (byte) (color.getBlue()*255);

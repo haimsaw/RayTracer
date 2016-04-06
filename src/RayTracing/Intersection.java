@@ -3,10 +3,21 @@ package RayTracing;
 import java.util.List;
 
 public class Intersection {
-    private Surface surface;
-    private MyVector position;
-    private MyVector direction;
+    public Surface surface;
+    public MyVector position;
+    public MyVector direction;
 
+    public MyVector getDirection() {
+        return direction;
+    }
+
+    public Surface getSurface() {
+        return surface;
+    }
+
+    public MyVector getPosition() {
+        return position;
+    }
 
     /**
      *
@@ -20,46 +31,7 @@ public class Intersection {
         this.direction = rayDirection.multiply(-1);
     }
 
-    public Surface getSurface() {
-        return surface;
-    }
-
-    public MyVector getPosition() {
-        return position;
-    }
 
 
-    //<editor-fold desc="colors parts">
-    public Color getColor( List<Light> lights){
-        Color color = new Color(0,0,0);
-        for (Light light : lights){
-            color = color.add(this.getColorForLight(light));
-        }
-        return color;
-    }
-
-    private Color getColorForLight(Light light) {
-        Color color = new Color(0,0,0);
-        color = color.add(this.specularColor(light));
-        color = color.add(this.diffuseColor(light));
-        return color.multiply(1-surface.material.transparency);
-    }
-
-    private Color diffuseColor(Light light){
-        MyVector directionToLight = new MyVector(position, light.position);
-        float intensity = surface.get_normal(position).getAbsCosAngel(directionToLight);
-        return light.color.multiply(surface.material.defuse_color).multiply(intensity);
-    }
-
-    private Color specularColor(Light light){
-        MyVector directionToLight = new MyVector(position, light.position);
-        MyVector normal = surface.get_normal(position);
-        MyVector reflectionDirection =(directionToLight.multiply(2).projectTo(normal)).subtract(directionToLight);
-        float intensity = light.specularIntensity*
-                (float) Math.pow(reflectionDirection.getAbsCosAngel(direction), surface.material.phong_coefficient);
-        return surface.material.specular_color.multiply(light.color).multiply(intensity);
-    }
-
-    //</editor-fold>
 
 }
