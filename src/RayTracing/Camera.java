@@ -17,9 +17,9 @@ class Camera {
         this.screen_distance = screen_distance;
         this.screen_width = screen_width;
         this.screen_height = screen_hight;
-        this.left = up.crossProduct(lookAt);
-        this.lookAt = lookAt;
-        this.up = lookAt.crossProduct(left);
+        this.left = up.crossProduct(lookAt).getNormalizedVector();
+        this.lookAt = lookAt.getNormalizedVector();
+        this.up = lookAt.crossProduct(left).getNormalizedVector();
         this.screenUpperLeft = this.calcScreenCoroner();
     }
 

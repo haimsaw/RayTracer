@@ -40,15 +40,9 @@ public class Intersection {
 
     private Color getColorForLight(Light light) {
         Color color = new Color(0,0,0);
-        color = color.add(this.ambiantColor(light));
-        color = color.add(this.specularColor(light).multiply(0.5));
-        color = color.add(this.diffuseColor(light).multiply(0.5));
-        return color;
-    }
-
-    private Color ambiantColor(Light light){
-        // todo need to compute?
-        return new Color(0,0,0);
+        color = color.add(this.specularColor(light));
+        color = color.add(this.diffuseColor(light));
+        return color.multiply(1-surface.material.transparency);
     }
 
     private Color diffuseColor(Light light){
