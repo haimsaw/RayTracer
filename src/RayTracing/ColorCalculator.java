@@ -25,8 +25,8 @@ public class ColorCalculator {
 
     private Color getColorForLight(Light light) {
         Color color = getBasicColor(light);
-        //return color;
-        return color.multiply(getShadowCoeff(light));
+        return color;
+        //return color.multiply(getShadowCoeff(light));
 
     }
 
@@ -43,7 +43,7 @@ public class ColorCalculator {
             MyVector rayStart = light.position.add(planeVector1.multiply(coeff1)).add(planeVector2.multiply(coeff2));
             Ray ray = new Ray(rayStart, intersection.position);
             if (ray.getClosestIntersection(surfaces).surface == intersection.surface){
-                // todo transparent 
+                // todo transparent
                 numOfHits++;
             }
         }

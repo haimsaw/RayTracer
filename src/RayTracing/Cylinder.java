@@ -19,8 +19,11 @@ public class Cylinder extends Rounded {
 
     @Override
     public MyVector get_normal(MyVector point) {
-        // todo
-        return axis;
+        if (isPointOnHead(point)){
+            return axis;
+        }
+        MyVector tmp = point.subtract(centerPosition);
+        return tmp.subtract(tmp.projectTo(axis));
     }
 
 
@@ -47,7 +50,9 @@ public class Cylinder extends Rounded {
     }
 
     private boolean isSolutionValid(double solution,Ray ray) {
-        double alpha = ray.getPointFromLambda(solution).subtract(centerPosition).dotProduct(axis);
+        MyVector tmp = (ray.getPointFromLambda(solution).subtract(centerPosition)).projectTo(axis);
+        double alpha = tmp.getLength();
+        System.out.print(tmp);
 
         return Math.abs(alpha) <= length/2;
     }
@@ -75,6 +80,9 @@ public class Cylinder extends Rounded {
 
     }
 
+    private boolean isPointOnHead(MyVector point){
+        return isPointOnHead(point, true) || isPointOnHead(point, false);
+    }
     //</editor-fold>
 }
 

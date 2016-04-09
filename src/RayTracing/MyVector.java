@@ -46,7 +46,6 @@ public class MyVector {
 
     public double distance(MyVector other){
         MyVector tmp = this.subtract(other);
-        // removed sqrt for time saving
         return this.subtract(other).getLength();
     }
 
@@ -59,7 +58,7 @@ public class MyVector {
     }
 
     public double getLength(){
-        return (double) Math.sqrt((double) this.dotProduct(this));
+        return Math.sqrt( this.dotProduct(this));
     }
 
     public MyVector getNormalizedVector(){
@@ -91,19 +90,9 @@ public class MyVector {
     public double get_z() {
         return this.z;
     }
-    /**
-    public void set_x(int x)
-        this.x = x;
-    }
 
-    public void set_y(int y) {
-        this.y = y;
+    public String toString(){
+        return String.format("%f, %f, %f\n",x,y,z);
     }
-
-    public void set_z(int z) {
-        this.z = z;
-    }
-    **/
-
 
 }

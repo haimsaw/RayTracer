@@ -39,7 +39,7 @@ public abstract class Rounded  extends Surface{
             }
         }
         if (discriminant > 0) {
-            double solution = (-b + (Math.sqrt(discriminant)) / 2);
+            double solution = (-b + Math.sqrt(discriminant)) / 2;
             if (solution >= 0) {
                 solutions.add(solution);
             }
