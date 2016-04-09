@@ -10,8 +10,8 @@ public class Matrix {
 
     public Matrix(float[][] A) {
         this.array = A;
-        int m = array.length;
-        int n = array[0].length;
+        m = array.length;
+        n = array[0].length;
     }
 
     public static Matrix createRotationMatrix(float[] angles) {
@@ -89,6 +89,7 @@ public class Matrix {
             for (int j = 0; j < nB; j++)
                 for (int k = 0; k < nA; k++)
                     C[i][j] += A[i][k] * B[k][j];
+
         return new Matrix(C);
     }
 
