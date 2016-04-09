@@ -20,7 +20,7 @@ public class Ray {
     //</editor-fold>
 
     public Ray(MyVector startPoint, MyVector endPoint) {
-        this.direction = endPoint.subtract(startPoint);
+        this.direction = endPoint.subtract(startPoint).getNormalizedVector();
         this.startPoint = startPoint;
     }
 

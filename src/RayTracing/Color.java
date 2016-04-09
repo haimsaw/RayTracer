@@ -51,7 +51,7 @@ public class Color {
 
     }
 
-   public String toSrting(){
-       return String.format("%d, %d, %d\n", red, green, blue);
+   public String toSrtring(){
+       return String.format("%f, %f, %f", red, green, blue);
    }
 }

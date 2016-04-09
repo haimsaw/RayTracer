@@ -20,6 +20,7 @@ class Camera {
         this.left = up.crossProduct(lookAt).getNormalizedVector();
         this.lookAt = lookAt.getNormalizedVector();
         this.up = lookAt.crossProduct(left).getNormalizedVector();
+        this.left = left.multiply(-1);
         this.screenUpperLeft = this.calcScreenCoroner();
     }
 
