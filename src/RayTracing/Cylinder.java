@@ -15,7 +15,7 @@ public class Cylinder extends Surface {
         this.centerPosition = centerPosition;
         this.length = length;
         this.radius = radius;
-        this.axis = new MyVector(0,1,1).getNormalizedVector(); //todo normalize
+        this.axis = Matrix.createRotationMatrix(rotation).multiplyByVector(new MyVector(0,0,1)).getNormalizedVector();
     }
 
     @Override
