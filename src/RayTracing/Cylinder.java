@@ -4,17 +4,16 @@ package RayTracing;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Cylinder extends Surface {
+public class Cylinder extends Rounded {
 
-    private MyVector centerPosition;
+
     private MyVector axis;
-    private double length, radius;
+    private double length;
 
-    public Cylinder(MyVector centerPosition, double length, double radius, double[] rotation, Material material){
-        super(material);
-        this.centerPosition = centerPosition;
+    public Cylinder(MyVector position, double length, double radius, double[] rotation, Material material){
+        super(material,radius,position);
+
         this.length = length;
-        this.radius = radius;
         this.axis = Matrix.createRotationMatrix(rotation).multiplyByVector(new MyVector(0,0,1)).getNormalizedVector();
     }
 
@@ -35,7 +34,22 @@ public class Cylinder extends Surface {
     }
 
     private void addBodyIntersections(Ray ray, List<Intersection> intersections) {
+        MyVector lambdaCoeff = ray.getDirection().subtract(ray.getDirection().projectTo(axis));
+        MyVector tmp = ray.getStartPoint().subtract(centerPosition);
+        MyVector otherCoeff = tmp.subtract(tmp.projectTo(axis));
+        double[] coefficients =  getCoefficients(lambdaCoeff, otherCoeff);
+        List<Double> solutions = getSolutions(coefficients);
+        for (double solution:solutions) {
+            if (isSolutionValid(solution, ray)) {
+                intersections.add(getIntersectionFromSoulution(solution, ray));
+            }
+        }
+    }
 
+    private boolean isSolutionValid(double solution,Ray ray) {
+        double alpha = ray.getPointFromLambda(solution).subtract(centerPosition).dotProduct(axis);
+
+        return Math.abs(alpha) <= length/2;
     }
 
     private void addHeadIntersections(Ray ray, List<Intersection> intersections) {

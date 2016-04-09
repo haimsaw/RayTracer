@@ -19,6 +19,27 @@ public class ColorCalculator {
     }
 
     private Color getColorForLight(Light light) {
+        Color color = getBasicColor(light);
+        return color.multiply(getShadowCoeff(light));
+
+    }
+    /**
+    private double getShadowCoeff(Light light) {
+        MyVector toIntersection = new MyVector(light.position, intersection.position);
+        double planeOffset = toIntersection.dotProduct(light.position);
+        MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset);
+
+    }
+
+    private MyVector getPlaneVector(MyVector normal, double offset){
+        float x = 100;
+        float y = 100;
+        //float z =
+        return new MyVector()
+    }
+    **/
+
+    private Color getBasicColor(Light light) {
         Color color = new Color(0,0,0);
         color = color.add(this.specularColor(light));
         color = color.add(this.diffuseColor(light));
@@ -31,7 +52,7 @@ public class ColorCalculator {
         MyVector normal = intersection.surface.get_normal(intersection.position);
         MyVector reflectionDirection =(directionToLight.multiply(2).projectTo(normal)).subtract(directionToLight);
         double intensity = light.specularIntensity*
-                (double) Math.pow(reflectionDirection.getAbsCosAngel(intersection.direction), intersection.surface.material.phong_coefficient);
+                Math.pow(reflectionDirection.getAbsCosAngel(intersection.direction), intersection.surface.material.phong_coefficient);
         return intersection.surface.material.specular_color.multiply(light.color).multiply(intensity);
     }
 
