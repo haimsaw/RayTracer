@@ -25,6 +25,6 @@ public class Sphere extends Rounded {
     //</editor-fold>
     @Override
     public MyVector get_normal(MyVector point) {
-        return new MyVector(centerPosition, point);
+        return new MyVector(centerPosition, point).getNormalizedVector();
     }
 }

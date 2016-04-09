@@ -25,6 +25,7 @@ public class ColorCalculator {
 
     private Color getColorForLight(Light light) {
         Color color = getBasicColor(light);
+        //return color;
         return color.multiply(getShadowCoeff(light));
 
     }
@@ -45,7 +46,8 @@ public class ColorCalculator {
                 numOfHits++;
             }
         }
-        return numOfHits/numOfShadowRays;
+        //System.out.println((double) numOfHits/numOfShadowRays);
+        return (double) numOfHits/numOfShadowRays;
     }
 
     private MyVector getPlaneVector(MyVector normal, double offset){

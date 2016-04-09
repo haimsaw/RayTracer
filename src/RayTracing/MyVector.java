@@ -92,7 +92,7 @@ public class MyVector {
         return this.z;
     }
     /**
-    public void set_x(int x) {
+    public void set_x(int x)
         this.x = x;
     }
 
