@@ -20,15 +20,10 @@ public class ColorCalculator {
 
     private Color getColorForLight(Light light) {
         Color color = new Color(0,0,0);
-        color = color.add(this.specularColor(light));
+        //color = color.add(this.specularColor(light));
         color = color.add(this.diffuseColor(light));
+        //System.out
         return color.multiply(1-intersection.surface.material.transparency);
-    }
-
-    private Color diffuseColor(Light light){
-        MyVector directionToLight = new MyVector(intersection.position, light.position);
-        float intensity = intersection.surface.get_normal(intersection.position).getAbsCosAngel(directionToLight);
-        return light.color.multiply(intersection.surface.material.defuse_color).multiply(intensity);
     }
 
     private Color specularColor(Light light){
@@ -39,4 +34,12 @@ public class ColorCalculator {
                 (float) Math.pow(reflectionDirection.getAbsCosAngel(intersection.direction), intersection.surface.material.phong_coefficient);
         return intersection.surface.material.specular_color.multiply(light.color).multiply(intensity);
     }
+
+    private Color diffuseColor(Light light){
+        MyVector directionToLight = new MyVector(intersection.position, light.position);
+        float intensity = intersection.surface.get_normal(intersection.position).getAbsCosAngel(directionToLight);
+        return light.color.multiply(intersection.surface.material.defuse_color).multiply(intensity);
+    }
+
+
 }

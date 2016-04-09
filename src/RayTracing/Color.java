@@ -27,6 +27,10 @@ public class Color {
         this.blue = blue>1 ? 1 : blue;
     }
 
+    public Color multiply(double v) {
+        return this.multiply((float) v);
+    }
+
     public Color multiply(Color coefficients){
         float red = coefficients.red*this.red;
         float green = coefficients.green*this.green;
@@ -47,7 +51,7 @@ public class Color {
 
     }
 
-    public Color multiply(double v) {
-        return this.multiply((float) v);
-    }
+   public String toSrting(){
+       return String.format("%d, %d, %d\n", red, green, blue);
+   }
 }
