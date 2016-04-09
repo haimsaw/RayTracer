@@ -22,7 +22,7 @@ public class ColorCalculator {
         Color color = new Color(0,0,0);
         color = color.add(this.specularColor(light));
         color = color.add(this.diffuseColor(light));
-        //System.out
+
         return color.multiply(1-intersection.surface.material.transparency);
     }
 
