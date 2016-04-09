@@ -23,6 +23,7 @@ public class Matrix {
         Matrix zRotation = createZrotationMatrix(zAngle);
         Matrix xByY = xRotation.multiplyByMatrix(yRotation);
         Matrix result = xByY.multiplyByMatrix(zRotation);
+        //Matrix result = zRotation.multiplyByMatrix(yRotation).multiplyByMatrix(zRotation);
         return result;
 
     }
