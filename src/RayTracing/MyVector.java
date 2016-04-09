@@ -67,6 +67,14 @@ public class MyVector {
         return this.multiply(1/len);
     }
 
+    public Matrix toMatrix() {
+        double[][] array = new double[3][1];
+        array[0][0] = this.x;
+        array[1][0] = this.y;
+        array[2][0] = this.z;
+        return new Matrix(array);
+    }
+
     public float getAbsCosAngel(MyVector other){
         return Math.abs(this.getNormalizedVector().dotProduct(other.getNormalizedVector()));
     }
