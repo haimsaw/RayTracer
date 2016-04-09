@@ -15,12 +15,13 @@ public class Cylinder extends Surface {
         this.centerPosition = centerPosition;
         this.length = length;
         this.radius = radius;
-        this.axis = new MyVector(0,0,1); //todo normalize
+        this.axis = new MyVector(0,1,1).getNormalizedVector(); //todo normalize
     }
 
     @Override
     public MyVector get_normal(MyVector point) {
-        return null;
+        // todo
+        return axis;
     }
 
 
