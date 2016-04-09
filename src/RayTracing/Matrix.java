@@ -14,7 +14,7 @@ public class Matrix {
         int n = array[0].length;
     }
 
-    public static Matrix createRotationMatrix(double xAngle, double yAngle, double zAngle) {
+    public static Matrix createRotationMatrix(float xAngle, float yAngle, float zAngle) {
         Matrix xRotation = createXrotationMatrix(xAngle);
         Matrix yRotation = createYrotationMatrix(yAngle);
         Matrix zRotation = createZrotationMatrix(zAngle);
@@ -24,7 +24,7 @@ public class Matrix {
 
     }
 
-    private static Matrix createXrotationMatrix(double xAngle) {
+    private static Matrix createXrotationMatrix(float xAngle) {
         float cosX = (float) Math.cos(Math.toRadians(xAngle));
         float sinX = (float) Math.sin(Math.toRadians(xAngle));
         float[][] array = new float[3][3];
@@ -40,7 +40,7 @@ public class Matrix {
         return new Matrix(array);
     }
 
-    private static Matrix createYrotationMatrix(double yAngle) {
+    private static Matrix createYrotationMatrix(float yAngle) {
         float cosY = (float) Math.cos(Math.toRadians(yAngle));
         float sinY = (float) Math.sin(Math.toRadians(yAngle));
         float[][] array = new float[3][3];
@@ -56,7 +56,7 @@ public class Matrix {
         return new Matrix(array);
     }
 
-    private static Matrix createZrotationMatrix(double zAngle) {
+    private static Matrix createZrotationMatrix(float zAngle) {
         float cosZ = (float) Math.cos(Math.toRadians(zAngle));
         float sinZ = (float) Math.sin(Math.toRadians(zAngle));
         float[][] array = new float[3][3];
