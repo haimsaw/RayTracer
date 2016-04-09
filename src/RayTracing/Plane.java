@@ -30,7 +30,7 @@ public class Plane extends Surface {
         if (lambda<0){
             return intersections;
         }
-        MyVector intersectionPoint = ray.getStartPoint().add(ray.getDirection().multiply(lambda));
+        MyVector intersectionPoint = ray.getPointFromLambda(lambda);
         Intersection intersection = new Intersection(this,intersectionPoint, ray.getDirection());
         intersections.add(intersection);
         return intersections;

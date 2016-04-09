@@ -42,4 +42,8 @@ public class Ray {
                     return 1;
                 });
     }
+
+    public MyVector getPointFromLambda(float lambda){
+        return direction.multiply(lambda).add(startPoint);
+    }
 }

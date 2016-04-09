@@ -15,6 +15,7 @@ public class Sphere extends Surface {
         this.radius = radius;
     }
 
+    //<editor-fold desc="intersection">
     @Override
     public List<Intersection> getIntersections(Ray ray) {
         List<Intersection> intersections = new LinkedList<>();
@@ -57,10 +58,11 @@ public class Sphere extends Surface {
     }
 
     private Intersection getIntersectionFromSoulution(float lambda, Ray ray){
-        MyVector position = ray.getDirection().multiply(lambda).add(ray.getStartPoint());
+        MyVector position = ray.getPointFromLambda(lambda);
         return new Intersection(this, position, ray.getDirection());
 
     }
+    //</editor-fold>
     @Override
     public MyVector get_normal(MyVector point) {
         return new MyVector(position, point);

@@ -98,7 +98,8 @@ class Factory {
     static Cylinder createCylinder(String[] params, List<Material> materialList) {
         Cylinder cylinder;
         float centerX, centerY, centerZ, length, radius, rotationX, rotationY, rotationZ;
-        MyVector centerPosition, rotation;
+        MyVector centerPosition;
+        float[] rotation;
         int matIndex;
         Material material;
 
@@ -113,7 +114,7 @@ class Factory {
         matIndex = Integer.parseInt(params[8]);
 
         centerPosition = new MyVector(centerX, centerY, centerZ);
-        rotation = new MyVector(rotationX, rotationY, rotationZ);
+        rotation = new float[] {rotationX, rotationY, rotationZ};
         material = materialList.get(matIndex - 1);
 
         cylinder = new Cylinder(centerPosition, length, radius, rotation, material);

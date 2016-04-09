@@ -272,6 +272,3 @@ public class RayTracer {
     //</editor-fold>
 
 }
-
-
-
