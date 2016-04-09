@@ -68,7 +68,7 @@ public class MyVector {
     }
 
     public Matrix toMatrix() {
-        double[][] array = new double[3][1];
+        float[][] array = new float[3][1];
         array[0][0] = this.x;
         array[1][0] = this.y;
         array[2][0] = this.z;
