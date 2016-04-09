@@ -11,7 +11,8 @@ public class ColorCalculator {
 
     public ColorCalculator(Intersection intersection, int numOfShadowRays, List<Surface> surfaces) {
         this.intersection = intersection;
-        surfaces = surfaces;
+        this.surfaces = surfaces;
+        this.numOfShadowRays = numOfShadowRays * numOfShadowRays;
     }
 
     public Color getColor(List<Light> lights){
@@ -31,13 +32,13 @@ public class ColorCalculator {
     private double getShadowCoeff(Light light) {
         MyVector toIntersection = new MyVector(light.position, intersection.position);
         double planeOffset = toIntersection.dotProduct(light.position);
-        MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset).getNormalizedVector();
-        MyVector planeVector2 = toIntersection.crossProduct(planeVector1);
+        MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset).getNormalizedVector().getNormalizedVector();
+        MyVector planeVector2 = toIntersection.crossProduct(planeVector1).getNormalizedVector();
         Random r = new Random();
         int numOfHits = 0;
         for (int i = 0; i<numOfShadowRays; i++){
-            double coeff1 = r.nextDouble() - .5;
-            double coeff2 = r.nextDouble() - .5;
+            double coeff1 = light.radius*( r.nextDouble() - .5);
+            double coeff2 = light.radius*(r.nextDouble() - .5);
             MyVector rayStart = light.position.add(planeVector1.multiply(coeff1)).add(planeVector2.multiply(coeff2));
             Ray ray = new Ray(rayStart, intersection.position);
             if (ray.getClosestIntersection(surfaces).surface == intersection.surface){
