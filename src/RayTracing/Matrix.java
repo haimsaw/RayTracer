@@ -15,7 +15,7 @@ public class Matrix {
     }
 
     // return C = A * B
-    public Matrix multiply(Matrix other) {
+    public Matrix multiplyByMatrix(Matrix other) {
         float[][] A = this.array;
         float[][] B = other.array;
         int mA = this.m;
@@ -33,7 +33,7 @@ public class Matrix {
 
     public MyVector multiplyByVector(MyVector other){
         Matrix vectorAsMatrix = other.toMatrix();
-        Matrix result = this.multiply(vectorAsMatrix);
+        Matrix result = this.multiplyByMatrix(vectorAsMatrix);
         return result.toMyVector();
     }
 
