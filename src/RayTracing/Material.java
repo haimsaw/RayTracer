@@ -4,12 +4,12 @@ public class Material {
 
     public Color defuse_color;
     public Color specular_color;
-    public float phong_coefficient;
+    public double phong_coefficient;
     public Color reflection;
-    public float transparency;
+    public double transparency;
 
 
-    public Material(Color defuse_color, Color specular_color, float phong_coefficient, Color reflection, float transparency) {
+    public Material(Color defuse_color, Color specular_color, double phong_coefficient, Color reflection, double transparency) {
         this.defuse_color = defuse_color;
         this.specular_color = specular_color;
         this.phong_coefficient =  phong_coefficient;

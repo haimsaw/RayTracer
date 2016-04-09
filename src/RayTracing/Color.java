@@ -2,51 +2,51 @@ package RayTracing;
 
 public class Color {
 
-    private float red;
-    private float green;
-    private float blue;
+    private double red;
+    private double green;
+    private double blue;
 
     //<editor-fold desc="getters">
-    public float getRed() {
+    public double getRed() {
         return red;
     }
 
-    public float getGreen() {
+    public double getGreen() {
         return green;
     }
 
-    public float getBlue() {
+    public double getBlue() {
         return blue;
     }
     //</editor-fold>
 
-    public Color(float red, float green, float blue) {
-        // todo is float??
+    public Color(double red, double green, double blue) {
+        // todo is double??
         this.red = red>1 ? 1 : red;
         this.green = green>1 ? 1 : green;
         this.blue = blue>1 ? 1 : blue;
     }
-
+    /**
     public Color multiply(double v) {
-        return this.multiply((float) v);
-    }
+        return this.multiply((double) v);
+    }**/
 
     public Color multiply(Color coefficients){
-        float red = coefficients.red*this.red;
-        float green = coefficients.green*this.green;
-        float blue = coefficients.blue*this.blue;
+        double red = coefficients.red*this.red;
+        double green = coefficients.green*this.green;
+        double blue = coefficients.blue*this.blue;
 
         return new Color(red, green, blue);
     }
 
-    public Color multiply(float coefficient){
+    public Color multiply(double coefficient){
         return this.multiply(new Color(coefficient, coefficient, coefficient));
     }
 
     public Color add(Color other){
-        float red = this.getRed() + other.getRed();
-        float green = this.getGreen() + other.getGreen();
-        float blue = this.getBlue() + other.getBlue();
+        double red = this.getRed() + other.getRed();
+        double green = this.getGreen() + other.getGreen();
+        double blue = this.getBlue() + other.getBlue();
         return new Color(red, green, blue);
 
     }

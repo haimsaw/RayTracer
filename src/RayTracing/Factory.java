@@ -7,24 +7,24 @@ class Factory {
 
     public static Camera createCamera(String[] params, int imageHeight, int imageWidth) {
 
-        float px, py, pz, lx, ly, lz, ux, uy, uz, screenDistance, screenWidth, screenHeight;
-        px = Float.parseFloat(params[0]);
-        py = Float.parseFloat(params[1]);
-        pz = Float.parseFloat(params[2]);
-        lx = Float.parseFloat(params[3]);
-        ly = Float.parseFloat(params[4]);
-        lz = Float.parseFloat(params[5]);
-        ux = Float.parseFloat(params[6]);
-        uy = Float.parseFloat(params[7]);
-        uz = Float.parseFloat(params[8]);
+        double px, py, pz, lx, ly, lz, ux, uy, uz, screenDistance, screenWidth, screenHeight;
+        px = Double.parseDouble(params[0]);
+        py = Double.parseDouble(params[1]);
+        pz = Double.parseDouble(params[2]);
+        lx = Double.parseDouble(params[3]);
+        ly = Double.parseDouble(params[4]);
+        lz = Double.parseDouble(params[5]);
+        ux = Double.parseDouble(params[6]);
+        uy = Double.parseDouble(params[7]);
+        uz = Double.parseDouble(params[8]);
 
         MyVector position = new MyVector(px, py, pz);
         MyVector lookAt = new MyVector(lx, ly, lz).subtract(position);
         MyVector up = new MyVector(ux, uy, uz);
 
-        screenDistance = Float.parseFloat(params[9]);
-        screenWidth = Float.parseFloat(params[10]);
-        float proportion = (float) imageHeight / (float) imageWidth;
+        screenDistance = Double.parseDouble(params[9]);
+        screenWidth = Double.parseDouble(params[10]);
+        double proportion = (double) imageHeight / (double) imageWidth;
         screenHeight = proportion * screenWidth; //TODO make sure
 
 
@@ -33,22 +33,22 @@ class Factory {
     }
 
     static Material createMaterial(String[] params) {
-        float dr, dg, db, sr, sg, sb, rr, rg, rb;
+        double dr, dg, db, sr, sg, sb, rr, rg, rb;
         Color defuseColor, specularColor, reflection;
         Material material;
 
-        float phongCoefficient = Float.parseFloat(params[9]);
-        float transparency = Float.parseFloat(params[10]);
+        double phongCoefficient = Double.parseDouble(params[9]);
+        double transparency = Double.parseDouble(params[10]);
 
-        dr = Float.parseFloat(params[0]);
-        dg = Float.parseFloat(params[1]);
-        db = Float.parseFloat(params[2]);
-        sr = Float.parseFloat(params[3]);
-        sg = Float.parseFloat(params[4]);
-        sb = Float.parseFloat(params[5]);
-        rr = Float.parseFloat(params[6]);
-        rg = Float.parseFloat(params[7]);
-        rb = Float.parseFloat(params[8]);
+        dr = Double.parseDouble(params[0]);
+        dg = Double.parseDouble(params[1]);
+        db = Double.parseDouble(params[2]);
+        sr = Double.parseDouble(params[3]);
+        sg = Double.parseDouble(params[4]);
+        sb = Double.parseDouble(params[5]);
+        rr = Double.parseDouble(params[6]);
+        rg = Double.parseDouble(params[7]);
+        rb = Double.parseDouble(params[8]);
 
         defuseColor = new Color(dr, dg, db);
         specularColor = new Color(sr, sg, sb);
@@ -60,14 +60,14 @@ class Factory {
 
     static Sphere createSphere(String[] params, List<Material> materialsList) {
         Sphere sphere;
-        float centerX, centerY, centerZ, radious;
+        double centerX, centerY, centerZ, radious;
         int matIndex;
 
-        centerX = Float.parseFloat(params[0]);
-        centerY = Float.parseFloat(params[1]);
-        centerZ = Float.parseFloat(params[2]);
+        centerX = Double.parseDouble(params[0]);
+        centerY = Double.parseDouble(params[1]);
+        centerZ = Double.parseDouble(params[2]);
         matIndex = Integer.parseInt(params[4]);
-        radious = Float.parseFloat(params[3]);
+        radious = Double.parseDouble(params[3]);
 
         Material material = materialsList.get(matIndex-1);
         MyVector center = new MyVector(centerX, centerY, centerZ);
@@ -79,13 +79,13 @@ class Factory {
 
     static Plane createPlane(String[] params, List<Material> materialsList) {
         Plane plane;
-        float normalX, normalY, normalZ, offset;
+        double normalX, normalY, normalZ, offset;
         int matIndx;
 
-        normalX = Float.parseFloat(params[0]);
-        normalY = Float.parseFloat(params[1]);
-        normalZ = Float.parseFloat(params[2]);
-        offset = Float.parseFloat(params[3]);
+        normalX = Double.parseDouble(params[0]);
+        normalY = Double.parseDouble(params[1]);
+        normalZ = Double.parseDouble(params[2]);
+        offset = Double.parseDouble(params[3]);
         matIndx = Integer.parseInt(params[4]);
 
         MyVector normal = new MyVector(normalX, normalY, normalZ);
@@ -97,24 +97,24 @@ class Factory {
 
     static Cylinder createCylinder(String[] params, List<Material> materialList) {
         Cylinder cylinder;
-        float centerX, centerY, centerZ, length, radius, rotationX, rotationY, rotationZ;
+        double centerX, centerY, centerZ, length, radius, rotationX, rotationY, rotationZ;
         MyVector centerPosition;
-        float[] rotation;
+        double[] rotation;
         int matIndex;
         Material material;
 
-        centerX = Float.parseFloat(params[0]);
-        centerY = Float.parseFloat(params[1]);
-        centerZ = Float.parseFloat(params[2]);
-        length = Float.parseFloat(params[3]);
-        radius = Float.parseFloat(params[4]);
-        rotationX = Float.parseFloat(params[5]);
-        rotationY = Float.parseFloat(params[6]);
-        rotationZ = Float.parseFloat(params[7]);
+        centerX = Double.parseDouble(params[0]);
+        centerY = Double.parseDouble(params[1]);
+        centerZ = Double.parseDouble(params[2]);
+        length = Double.parseDouble(params[3]);
+        radius = Double.parseDouble(params[4]);
+        rotationX = Double.parseDouble(params[5]);
+        rotationY = Double.parseDouble(params[6]);
+        rotationZ = Double.parseDouble(params[7]);
         matIndex = Integer.parseInt(params[8]);
 
         centerPosition = new MyVector(centerX, centerY, centerZ);
-        rotation = new float[] {rotationX, rotationY, rotationZ};
+        rotation = new double[] {rotationX, rotationY, rotationZ};
         material = materialList.get(matIndex - 1);
 
         cylinder = new Cylinder(centerPosition, length, radius, rotation, material);
@@ -125,17 +125,17 @@ class Factory {
         Light light;
         MyVector position;
         Color color;
-        Float specular, shadow, width, px, py, pz, r, g, b;
+        Double specular, shadow, width, px, py, pz, r, g, b;
 
-        px = Float.parseFloat(params[0]);
-        py = Float.parseFloat(params[1]);
-        pz = Float.parseFloat(params[2]);
-        r = Float.parseFloat(params[3]);
-        g = Float.parseFloat(params[4]);
-        b = Float.parseFloat(params[5]);
-        specular = Float.parseFloat(params[6]);
-        shadow = Float.parseFloat(params[7]);
-        width = Float.parseFloat(params[8]);
+        px = Double.parseDouble(params[0]);
+        py = Double.parseDouble(params[1]);
+        pz = Double.parseDouble(params[2]);
+        r = Double.parseDouble(params[3]);
+        g = Double.parseDouble(params[4]);
+        b = Double.parseDouble(params[5]);
+        specular = Double.parseDouble(params[6]);
+        shadow = Double.parseDouble(params[7]);
+        width = Double.parseDouble(params[8]);
 
         position = new MyVector(px, py, pz);
         color = new Color(r,g,b);

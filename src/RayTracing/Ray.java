@@ -35,7 +35,7 @@ public class Ray {
         }
         return Collections.min(intersections,
                     (o1, o2) -> {
-                    float delta = o1.getPosition().distance(this.startPoint) - o2.getPosition().distance(this.startPoint);
+                    double delta = o1.getPosition().distance(this.startPoint) - o2.getPosition().distance(this.startPoint);
                     if (delta < 0){
                         return  -1;
                     }
@@ -43,7 +43,7 @@ public class Ray {
                 });
     }
 
-    public MyVector getPointFromLambda(float lambda){
+    public MyVector getPointFromLambda(double lambda){
         return direction.multiply(lambda).add(startPoint);
     }
 }

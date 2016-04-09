@@ -6,9 +6,9 @@ import java.util.List;
 public class Plane extends Surface {
 
     MyVector normal;
-    float offset;
+    double offset;
 
-    public Plane(MyVector normal, float offset, Material material) {
+    public Plane(MyVector normal, double offset, Material material) {
         super(material);
         this.normal = normal;
         this.offset = offset;
@@ -26,7 +26,7 @@ public class Plane extends Surface {
          * intersection = lambda*ray.direction + ray.start
          */
 
-        float lambda = (this.offset - ray.getStartPoint().dotProduct(normal))/(ray.getDirection().dotProduct(normal));
+        double lambda = (this.offset - ray.getStartPoint().dotProduct(normal))/(ray.getDirection().dotProduct(normal));
         if (lambda<0){
             return intersections;
         }

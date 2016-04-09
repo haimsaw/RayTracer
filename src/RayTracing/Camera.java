@@ -4,13 +4,13 @@ class Camera {
     public MyVector position;
     public MyVector lookAt;
     public MyVector up;
-    public float screen_distance;
-    public float screen_width;
-    public float screen_height;
+    public double screen_distance;
+    public double screen_width;
+    public double screen_height;
     public MyVector left;
     public MyVector screenUpperLeft;
 
-    public Camera(MyVector position, MyVector lookAt, MyVector up, float screen_distance, float screen_width, float screen_hight) {
+    public Camera(MyVector position, MyVector lookAt, MyVector up, double screen_distance, double screen_width, double screen_hight) {
         this.position = position;
 
 
@@ -24,7 +24,7 @@ class Camera {
         this.screenUpperLeft = this.calcScreenCoroner();
     }
 
-    public Ray getRay(int down, int right, float screenToImageRatio){
+    public Ray getRay(int down, int right, double screenToImageRatio){
         MyVector rightShift = this.left.multiply(-1*right*screenToImageRatio);
         MyVector downShift = this.up.multiply(-1*down*screenToImageRatio);
 

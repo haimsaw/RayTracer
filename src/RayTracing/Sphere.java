@@ -6,10 +6,10 @@ import java.util.List;
 
 public class Sphere extends Surface {
 
-    private float radius;
+    private double radius;
     private MyVector position;
 
-    public Sphere(MyVector position, float radius, Material material) {
+    public Sphere(MyVector position, double radius, Material material) {
         super(material);
         this.position = position;
         this.radius = radius;
@@ -19,36 +19,36 @@ public class Sphere extends Surface {
     @Override
     public List<Intersection> getIntersections(Ray ray) {
         List<Intersection> intersections = new LinkedList<>();
-        float[] coefficients =  getCoefficients(ray.getDirection(), ray.getStartPoint().subtract(position));
-        List<Float> solutions = getSolutions(coefficients);
-        for (float solution:solutions) {
+        double[] coefficients =  getCoefficients(ray.getDirection(), ray.getStartPoint().subtract(position));
+        List<Double> solutions = getSolutions(coefficients);
+        for (double solution:solutions) {
             intersections.add(getIntersectionFromSoulution(solution, ray));
         }
         return intersections;
     }
 
-    private float[] getCoefficients(MyVector direction, MyVector tmp){
-        float degree2 = direction.dotProduct(direction);
-        float degree1 = 2 * direction.dotProduct(tmp);
-        float degree0 = tmp.dotProduct(tmp) - radius*radius;
-        float[] ret = {degree2, degree1, degree0};
+    private double[] getCoefficients(MyVector direction, MyVector tmp){
+        double degree2 = direction.dotProduct(direction);
+        double degree1 = 2 * direction.dotProduct(tmp);
+        double degree0 = tmp.dotProduct(tmp) - radius*radius;
+        double[] ret = {degree2, degree1, degree0};
         return ret;
     }
 
-    private List<Float> getSolutions(float[] coeffisents) {
-        List<Float> solutions = new LinkedList<>();
-        float a = coeffisents[0];
-        float b = coeffisents[1];
-        float c = coeffisents[2];
-        float discriminant =b * b - 4 * a * c;
+    private List<Double> getSolutions(double[] coeffisents) {
+        List<Double> solutions = new LinkedList<>();
+        double a = coeffisents[0];
+        double b = coeffisents[1];
+        double c = coeffisents[2];
+        double discriminant =b * b - 4 * a * c;
         if (discriminant >= 0){
-            float solution =  (float) (-b + Math.sqrt(discriminant)) / 2  ;
+            double solution =  (double) (-b + Math.sqrt(discriminant)) / 2  ;
             if (solution >= 0) {
                     solutions.add(solution);
                 }
         }
         if (discriminant > 0) {
-            float solution = (float) (-b + (Math.sqrt(discriminant)) / 2);
+            double solution = (double) (-b + (Math.sqrt(discriminant)) / 2);
             if (solution >= 0) {
                 solutions.add(solution);
             }
@@ -56,7 +56,7 @@ public class Sphere extends Surface {
         return solutions;
     }
 
-    private Intersection getIntersectionFromSoulution(float lambda, Ray ray){
+    private Intersection getIntersectionFromSoulution(double lambda, Ray ray){
         MyVector position = ray.getPointFromLambda(lambda);
         return new Intersection(this, position, ray.getDirection());
 

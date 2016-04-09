@@ -5,19 +5,19 @@ package RayTracing;
  */
 public class Matrix {
 
-    float[][] array;
+    double[][] array;
     int m, n;
 
-    public Matrix(float[][] A) {
+    public Matrix(double[][] A) {
         this.array = A;
         m = array.length;
         n = array[0].length;
     }
 
-    public static Matrix createRotationMatrix(float[] angles) {
-        float xAngle = angles[0];
-        float yAngle = angles[1];
-        float zAngle = angles[2];
+    public static Matrix createRotationMatrix(double[] angles) {
+        double xAngle = angles[0];
+        double yAngle = angles[1];
+        double zAngle = angles[2];
         Matrix xRotation = createXrotationMatrix(xAngle);
         Matrix yRotation = createYrotationMatrix(yAngle);
         Matrix zRotation = createZrotationMatrix(zAngle);
@@ -28,10 +28,10 @@ public class Matrix {
 
     }
 
-    private static Matrix createXrotationMatrix(float xAngle) {
-        float cosX = (float) Math.cos(Math.toRadians(xAngle));
-        float sinX = (float) Math.sin(Math.toRadians(xAngle));
-        float[][] array = new float[3][3];
+    private static Matrix createXrotationMatrix(double xAngle) {
+        double cosX = (double) Math.cos(Math.toRadians(xAngle));
+        double sinX = (double) Math.sin(Math.toRadians(xAngle));
+        double[][] array = new double[3][3];
         array[0][0] = 1;
         array[0][1] = 0;
         array[0][2] = 0;
@@ -44,10 +44,10 @@ public class Matrix {
         return new Matrix(array);
     }
 
-    private static Matrix createYrotationMatrix(float yAngle) {
-        float cosY = (float) Math.cos(Math.toRadians(yAngle));
-        float sinY = (float) Math.sin(Math.toRadians(yAngle));
-        float[][] array = new float[3][3];
+    private static Matrix createYrotationMatrix(double yAngle) {
+        double cosY = (double) Math.cos(Math.toRadians(yAngle));
+        double sinY = (double) Math.sin(Math.toRadians(yAngle));
+        double[][] array = new double[3][3];
         array[0][0] = cosY;
         array[0][1] = 0;
         array[0][2] = sinY;
@@ -60,10 +60,10 @@ public class Matrix {
         return new Matrix(array);
     }
 
-    private static Matrix createZrotationMatrix(float zAngle) {
-        float cosZ = (float) Math.cos(Math.toRadians(zAngle));
-        float sinZ = (float) Math.sin(Math.toRadians(zAngle));
-        float[][] array = new float[3][3];
+    private static Matrix createZrotationMatrix(double zAngle) {
+        double cosZ = (double) Math.cos(Math.toRadians(zAngle));
+        double sinZ = (double) Math.sin(Math.toRadians(zAngle));
+        double[][] array = new double[3][3];
         array[0][0] = cosZ;
         array[0][1] = -1 * sinZ;
         array[0][2] = 0;
@@ -78,14 +78,14 @@ public class Matrix {
 
     // return C = A * B
     public Matrix multiplyByMatrix(Matrix other) {
-        float[][] A = this.array;
-        float[][] B = other.array;
+        double[][] A = this.array;
+        double[][] B = other.array;
         int mA = this.m;
         int nA = this.n;
         int mB = other.m;
         int nB = other.n;
         if (nA != mB) throw new RuntimeException("Illegal matrix dimensions.");
-        float[][] C = new float[mA][nB];
+        double[][] C = new double[mA][nB];
         for (int i = 0; i < mA; i++)
             for (int j = 0; j < nB; j++)
                 for (int k = 0; k < nA; k++)

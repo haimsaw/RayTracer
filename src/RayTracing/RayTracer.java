@@ -25,7 +25,7 @@ public class RayTracer {
     public Color backgroundColor;
     public int ShadowRaysAmount;
     public int maxRecursion;
-    public float screenToImageRatio;
+    public double screenToImageRatio;
 
     /**
      * Runs the ray tracer. Takes scene file, output image file and image size as input.
@@ -113,7 +113,7 @@ public class RayTracer {
                 }
                 else if (code.equals("set"))
                 {
-                    float red, green, blue;
+                    double red, green, blue;
                     red = Float.parseFloat(params[0]);
                     green = Float.parseFloat(params[1]);
                     blue = Float.parseFloat(params[2]);

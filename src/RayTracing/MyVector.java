@@ -2,11 +2,11 @@ package RayTracing;
 
 public class MyVector {
 
-    private float x;
-    private float y;
-    private float z;
+    private double x;
+    private double y;
+    private double z;
 
-    public MyVector(float x, float y, float z) {
+    public MyVector(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -20,37 +20,37 @@ public class MyVector {
 
     //<editor-fold desc="vectors math">
     public MyVector crossProduct(MyVector other){
-        float x = this.get_y()*other.get_z() - this.get_z()*other.get_y();
-        float y = this.get_z()*other.get_x() - this.get_x()*other.get_z();
-        float z = this.get_x()*other.get_y() - this.get_y()*other.get_x();
+        double x = this.get_y()*other.get_z() - this.get_z()*other.get_y();
+        double y = this.get_z()*other.get_x() - this.get_x()*other.get_z();
+        double z = this.get_x()*other.get_y() - this.get_y()*other.get_x();
         return new MyVector(x, y, z);
     }
 
-    public MyVector multiply(float scalar){
+    public MyVector multiply(double scalar){
         return new MyVector(this.x*scalar, this.y*scalar, this.z*scalar);
     }
 
     public MyVector add(MyVector other) {
-        float x = this.get_x() + other.get_x();
-        float y = this.get_y() + other.get_y();
-        float z = this.get_z() + other.get_z();
+        double x = this.get_x() + other.get_x();
+        double y = this.get_y() + other.get_y();
+        double z = this.get_z() + other.get_z();
         return new MyVector(x, y, z);
     }
 
     public MyVector subtract(MyVector other){
-        float x = this.get_x() - other.get_x();
-        float y = this.get_y() - other.get_y();
-        float z = this.get_z() - other.get_z();
+        double x = this.get_x() - other.get_x();
+        double y = this.get_y() - other.get_y();
+        double z = this.get_z() - other.get_z();
         return new MyVector(x, y, z);
     }
 
-    public float distance(MyVector other){
+    public double distance(MyVector other){
         MyVector tmp = this.subtract(other);
         // removed sqrt for time saving
         return this.subtract(other).getLength();
     }
 
-    public float dotProduct(MyVector other){
+    public double dotProduct(MyVector other){
         return this.get_x()*other.get_x() + this.get_y()*other.get_y() + this.get_z()*other.get_z();
     }
 
@@ -58,37 +58,37 @@ public class MyVector {
         return other.multiply(this.dotProduct(other));
     }
 
-    public float getLength(){
-        return (float) Math.sqrt((float) this.dotProduct(this));
+    public double getLength(){
+        return (double) Math.sqrt((double) this.dotProduct(this));
     }
 
     public MyVector getNormalizedVector(){
-        float len = this.getLength();
+        double len = this.getLength();
         return this.multiply(1/len);
     }
 
     public Matrix toMatrix() {
-        float[][] array = new float[3][1];
+        double[][] array = new double[3][1];
         array[0][0] = this.x;
         array[1][0] = this.y;
         array[2][0] = this.z;
         return new Matrix(array);
     }
 
-    public float getAbsCosAngel(MyVector other){
+    public double getAbsCosAngel(MyVector other){
         return Math.abs(this.getNormalizedVector().dotProduct(other.getNormalizedVector()));
     }
     //</editor-fold>
 
-    public float get_x() {
+    public double get_x() {
         return this.x;
     }
 
-    public float get_y() {
+    public double get_y() {
         return this.y;
     }
 
-    public float get_z() {
+    public double get_z() {
         return this.z;
     }
     /**

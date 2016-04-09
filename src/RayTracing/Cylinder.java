@@ -8,9 +8,9 @@ public class Cylinder extends Surface {
 
     private MyVector centerPosition;
     private MyVector axis;
-    private float length, radius;
+    private double length, radius;
 
-    public Cylinder(MyVector centerPosition, float length, float radius, float[] rotation, Material material){
+    public Cylinder(MyVector centerPosition, double length, double radius, double[] rotation, Material material){
         super(material);
         this.centerPosition = centerPosition;
         this.length = length;
@@ -39,14 +39,14 @@ public class Cylinder extends Surface {
     }
 
     private void addHeadIntersections(Ray ray, List<Intersection> intersections) {
-        float upperLambda = (length/2 - ray.getStartPoint().dotProduct(axis))/ray.getDirection().dotProduct(axis);
-        float lowerLambda = (-length/2 - ray.getStartPoint().dotProduct(axis))/ray.getDirection().dotProduct(axis);
+        double upperLambda = (length/2 - ray.getStartPoint().dotProduct(axis))/ray.getDirection().dotProduct(axis);
+        double lowerLambda = (-length/2 - ray.getStartPoint().dotProduct(axis))/ray.getDirection().dotProduct(axis);
         handelHeadLambda(upperLambda, true, intersections, ray);
         handelHeadLambda(lowerLambda, false, intersections, ray);
 
     }
 
-    private void handelHeadLambda(float lambda, boolean isUpper, List<Intersection> intersections, Ray ray) {
+    private void handelHeadLambda(double lambda, boolean isUpper, List<Intersection> intersections, Ray ray) {
         if (lambda >= 0) {
             MyVector intersectionPoint = ray.getPointFromLambda(lambda);
             if (isPointOnHead(intersectionPoint, isUpper)) {
