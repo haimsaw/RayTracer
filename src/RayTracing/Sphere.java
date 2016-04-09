@@ -42,7 +42,6 @@ public class Sphere extends Surface {
         float c = coeffisents[2];
         float discriminant =b * b - 4 * a * c;
         if (discriminant >= 0){
-            //todo not negative
             float solution =  (float) (-b + Math.sqrt(discriminant)) / 2  ;
             if (solution >= 0) {
                     solutions.add(solution);
