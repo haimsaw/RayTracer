@@ -14,7 +14,10 @@ public class Matrix {
         int n = array[0].length;
     }
 
-    public static Matrix createRotationMatrix(float xAngle, float yAngle, float zAngle) {
+    public static Matrix createRotationMatrix(float[] angles) {
+        float xAngle = angles[0];
+        float yAngle = angles[1];
+        float zAngle = angles[2];
         Matrix xRotation = createXrotationMatrix(xAngle);
         Matrix yRotation = createYrotationMatrix(yAngle);
         Matrix zRotation = createZrotationMatrix(zAngle);
