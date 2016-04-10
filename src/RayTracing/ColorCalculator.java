@@ -12,7 +12,7 @@ public class ColorCalculator {
     public ColorCalculator(Intersection intersection, int numOfShadowRays, List<Surface> surfaces) {
         this.intersection = intersection;
         this.surfaces = surfaces;
-        this.numOfShadowRays = numOfShadowRays * numOfShadowRays;
+        this.numOfShadowRays = numOfShadowRays ;
     }
 
     public Color getColor(List<Light> lights){
@@ -25,30 +25,34 @@ public class ColorCalculator {
 
     private Color getColorForLight(Light light) {
         Color color = getBasicColor(light);
-        return color;
-        //return color.multiply(getShadowCoeff(light));
+        //return color;
+        return color.multiply(getShadowCoeff(light));
 
     }
 
     private double getShadowCoeff(Light light) {
         MyVector toIntersection = new MyVector(light.position, intersection.position);
         double planeOffset = toIntersection.dotProduct(light.position);
-        MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset).getNormalizedVector().getNormalizedVector();
-        MyVector planeVector2 = toIntersection.crossProduct(planeVector1).getNormalizedVector();
+        MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset).getNormalizedVector().multiply(light.radius);
+        MyVector planeVector2 = toIntersection.crossProduct(planeVector1).getNormalizedVector().multiply(light.radius);
+        MyVector rectStart = light.position.subtract(planeVector1.multiply(0.5)).subtract(planeVector1.multiply(0.5));
         Random r = new Random();
-        int numOfHits = 0;
-        for (int i = 0; i<numOfShadowRays; i++){
-            double coeff1 = light.radius*( r.nextDouble() - .5);
-            double coeff2 = light.radius*(r.nextDouble() - .5);
-            MyVector rayStart = light.position.add(planeVector1.multiply(coeff1)).add(planeVector2.multiply(coeff2));
-            Ray ray = new Ray(rayStart, intersection.position);
-            if (ray.getClosestIntersection(surfaces).surface == intersection.surface){
-                // todo transparent
-                numOfHits++;
+        double numOfHits = 0;
+        for (int i = 0; i<numOfShadowRays; i++) {
+            for (int j = 0; j < numOfShadowRays; j++) {
+                double coeff1 = r.nextDouble();
+                double coeff2 = r.nextDouble();
+                MyVector rayStart = rectStart.add(planeVector1.multiply((i+coeff1)/numOfShadowRays))
+                        .add(planeVector2.multiply((j+coeff2)/numOfShadowRays));
+                Ray ray = new Ray(rayStart, intersection.position);
+                if (ray.getClosestIntersection(surfaces).surface == intersection.surface) {
+                    // todo transparent
+                    numOfHits++;
+                }
             }
         }
         //System.out.println((double) numOfHits/numOfShadowRays);
-        return (double) numOfHits/numOfShadowRays;
+        return 1-light.shadow + light.shadow*numOfHits/(numOfShadowRays*numOfShadowRays);
     }
 
     private MyVector getPlaneVector(MyVector normal, double offset){
