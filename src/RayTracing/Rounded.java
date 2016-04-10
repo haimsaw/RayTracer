@@ -33,13 +33,14 @@ public abstract class Rounded  extends Surface{
         double c = coeffisents[2];
         double discriminant =b * b - 4 * a * c;
         if (discriminant >= 0){
+
             double solution =  (-b + Math.sqrt(discriminant)) / 2  ;
             if (solution >= 0) {
                 solutions.add(solution);
             }
         }
         if (discriminant > 0) {
-            double solution = (-b + Math.sqrt(discriminant)) / 2;
+            double solution = (-b - Math.sqrt(discriminant)) / 2;
             if (solution >= 0) {
                 solutions.add(solution);
             }
