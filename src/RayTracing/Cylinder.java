@@ -42,8 +42,8 @@ public class Cylinder extends Rounded {
         MyVector otherCoeff = tmp.subtract(tmp.projectTo(axis));
         double[] coefficients =  getCoefficients(lambdaCoeff, otherCoeff);
         List<Double> solutions = getSolutions(coefficients);
-        if (solutions.size()>0)
-            System.out.println(solutions);
+        //if (solutions.size()>0)
+        //    System.out.println(solutions);
         for (double solution:solutions) {
             if (isSolutionValid(solution, ray)) {
                 intersections.add(getIntersectionFromSoulution(solution, ray));
@@ -54,7 +54,7 @@ public class Cylinder extends Rounded {
     private boolean isSolutionValid(double solution,Ray ray) {
         MyVector tmp = (ray.getPointFromLambda(solution).subtract(centerPosition)).projectTo(axis);
         double alpha = tmp.getLength();
-        //System.out.print(tmp);
+        //System.out.println(tmp);
 
         return Math.abs(alpha) <= length/2;
     }

@@ -44,6 +44,6 @@ public class Ray {
     }
 
     public MyVector getPointFromLambda(double lambda){
-        return direction.multiply(lambda).add(startPoint);
+        return (direction.multiply(lambda)).add(startPoint);
     }
 }

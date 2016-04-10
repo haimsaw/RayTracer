@@ -92,7 +92,7 @@ public class MyVector {
     }
 
     public String toString(){
-        return String.format("%f, %f, %f\n",x,y,z);
+        return String.format("%f, %f, %f",x,y,z);
     }
 
 }
