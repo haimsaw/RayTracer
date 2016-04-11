@@ -21,9 +21,9 @@ public class Matrix {
         Matrix xRotation = createXrotationMatrix(xAngle);
         Matrix yRotation = createYrotationMatrix(yAngle);
         Matrix zRotation = createZrotationMatrix(zAngle);
-        Matrix xByY = xRotation.multiplyByMatrix(yRotation);
-        Matrix result = xByY.multiplyByMatrix(zRotation);
-        //Matrix result = zRotation.multiplyByMatrix(yRotation).multiplyByMatrix(zRotation);
+        //Matrix xByY = xRotation.multiplyByMatrix(yRotation);
+        //Matrix result = xByY.multiplyByMatrix(zRotation);
+        Matrix result = zRotation.multiplyByMatrix(yRotation).multiplyByMatrix(xRotation);
         return result;
 
     }

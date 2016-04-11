@@ -53,11 +53,13 @@ public class Cylinder extends Rounded {
     }
 
     private boolean isSolutionValid(double solution,Ray ray) {
-        MyVector tmp = (ray.getPointFromLambda(solution).subtract(centerPosition)).projectTo(axis);
-        double alpha = tmp.getLength();
+        MyVector point = ray.getPointFromLambda(solution);
+        MyVector pointToCenter = point.subtract(centerPosition);
+        MyVector projToAxies = pointToCenter.projectTo(axis);
+        double alpha = projToAxies.getLength();
         //System.out.println(tmp);
 
-        return Math.abs(alpha) <= length/2;
+        return Math.abs(alpha) < length/2;
     }
 
     private void addHeadIntersections(Ray ray, List<Intersection> intersections) {
@@ -79,7 +81,7 @@ public class Cylinder extends Rounded {
 
     private boolean isPointOnHead(MyVector point, boolean isUpper){
         MyVector center = isUpper ? centerPosition.add(axis.multiply(length/2)) : centerPosition.subtract(axis.multiply(length / 2)) ;
-        return center.distance(point) <= radius ;
+        return center.distance(point) < radius ;
 
     }
 

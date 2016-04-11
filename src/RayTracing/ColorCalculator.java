@@ -25,8 +25,8 @@ public class ColorCalculator {
 
     private Color getColorForLight(Light light) {
         Color color = getBasicColor(light);
-        //return color;
-        return color.multiply(getShadowCoeff(light));
+        return color;
+        //return color.multiply(getShadowCoeff(light));
 
     }
 
