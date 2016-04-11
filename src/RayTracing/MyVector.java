@@ -54,7 +54,8 @@ public class MyVector {
     }
 
     public MyVector projectTo(MyVector other){
-        return other.multiply(this.dotProduct(other));
+        MyVector normalized = other.getNormalizedVector();
+        return normalized.multiply(this.dotProduct(normalized));
     }
 
     public double getLength(){

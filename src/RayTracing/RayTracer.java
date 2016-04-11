@@ -184,6 +184,9 @@ public class RayTracer {
         int height, width;
         for (height = 0; height < imageHeight; height++) {
             for (width = 0; width < imageWidth; width++) {
+                if (height==250 && width==250){
+                    int i=1+1;
+                }
                 Color color;
                 Ray ray = camera.getRay(height, width, screenToImageRatio);
                 Intersection intersection =  ray.getClosestIntersection(this.surfaces);

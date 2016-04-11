@@ -52,8 +52,10 @@ public class Cylinder extends Rounded {
     }
 
     private boolean isSolutionValid(double solution,Ray ray) {
-        MyVector tmp = (ray.getPointFromLambda(solution).subtract(centerPosition)).projectTo(axis);
-        double alpha = tmp.getLength();
+        MyVector point = ray.getPointFromLambda(solution);
+        MyVector pointToCenter = point.subtract(centerPosition);
+        MyVector projToAxies = pointToCenter.projectTo(axis);
+        double alpha = projToAxies.getLength();
         //System.out.println(tmp);
 
         return Math.abs(alpha) <= length/2;
