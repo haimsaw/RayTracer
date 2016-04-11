@@ -14,7 +14,8 @@ public class Cylinder extends Rounded {
         super(material,radius,position);
 
         this.length = length;
-        this.axis = Matrix.createRotationMatrix(rotation).multiplyByVector(new MyVector(0,0,1)).getNormalizedVector();
+        MyVector rotatedVector = Matrix.createRotationMatrix(rotation).multiplyByVector(new MyVector(0,0,1));
+        this.axis = rotatedVector.getNormalizedVector();
     }
 
     @Override
