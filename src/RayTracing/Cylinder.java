@@ -62,8 +62,8 @@ public class Cylinder extends Rounded {
     }
 
     private void addHeadIntersections(Ray ray, List<Intersection> intersections) {
-        double upperLambda = (length/2 - ray.getStartPoint().dotProduct(axis))/ray.getDirection().dotProduct(axis);
-        double lowerLambda = (-length/2 - ray.getStartPoint().dotProduct(axis))/ray.getDirection().dotProduct(axis);
+        double upperLambda = (length/2 - ray.getStartPoint().subtract(centerPosition).dotProduct(axis))/ray.getDirection().dotProduct(axis);
+        double lowerLambda = (-length/2 - ray.getStartPoint().subtract(centerPosition).dotProduct(axis))/ray.getDirection().dotProduct(axis);
         handelHeadLambda(upperLambda, true, intersections, ray);
         handelHeadLambda(lowerLambda, false, intersections, ray);
 
@@ -80,7 +80,7 @@ public class Cylinder extends Rounded {
 
     private boolean isPointOnHead(MyVector point, boolean isUpper){
         MyVector center = isUpper ? centerPosition.add(axis.multiply(length/2)) : centerPosition.subtract(axis.multiply(length / 2)) ;
-        return center.distance(point) < radius ;
+        return center.distance(point) <= radius ;
 
     }
 
