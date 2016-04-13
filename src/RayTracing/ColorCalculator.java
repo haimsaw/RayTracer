@@ -22,10 +22,12 @@ public class ColorCalculator {
 
     public Color traceRay(Ray ray, int recursionDepth) {
         Intersection intersection =  ray.getClosestIntersection(this.surfaces);
+        if (recursionDepth==9){
+            int i = 1;
+        }
         return intersection != null ? this.getColor(lights, recursionDepth, intersection) : backgroundColor;
 
     }
-
 
     public Color getColor(List<Light> lights, int recursionDepth,Intersection intersection ) {
         Color color = getBasicColor(lights, intersection);
@@ -33,15 +35,32 @@ public class ColorCalculator {
             return color;
         }
 
-        Color transperecyColor = getTranperecyColor(intersection, recursionDepth);
-        double tranpericyCoeff = intersection.surface.material.transparency;
-        return transperecyColor.multiply(tranpericyCoeff).add(color.multiply(1-tranpericyCoeff));
+        double transparencyCoeff = intersection.surface.material.transparency;
+
+        Color transparencyColor = getTransparencyColor(intersection, recursionDepth);
+        Color reflectionColor = getReflectionColor(intersection, recursionDepth);
+        return transparencyColor.multiply(transparencyCoeff).add(color.multiply(1-transparencyCoeff)).add(reflectionColor);
     }
 
-    private Color getTranperecyColor(Intersection intersection,  int recursionDepth) {
+    private Color getReflectionColor(Intersection intersection, int recursionDepth) {
+        if (intersection.surface.material.reflection.isZero()){
+            return new Color(0,0,0);
+        }
+        MyVector reflectionDirection = reflectionDirection(intersection.getDirectionToRayStart(),intersection);
+        MyVector rayDirection = intersection.directionToRayStart.multiply(-1);
+        MyVector rayStart = intersection.position.add(rayDirection.multiply(epsilon));
+        MyVector rayEnd = rayStart.add(reflectionDirection);
+        Ray ray = new Ray(rayStart,rayEnd);
+        return this.traceRay(ray, recursionDepth -1).multiply(intersection.surface.material.reflection);
+    }
 
-        MyVector rayStart = intersection.position.add(intersection.direction.multiply(epsilon));
-        MyVector rayEnd = intersection.position.add(intersection.direction);
+    private Color getTransparencyColor(Intersection intersection, int recursionDepth) {
+        if (intersection.surface.material.transparency == 0){
+            return new Color(0,0,0);
+        }
+        MyVector rayDirection = intersection.directionToRayStart.multiply(-1);
+        MyVector rayStart = intersection.position.add(rayDirection.multiply(epsilon));
+        MyVector rayEnd = rayStart.add(rayDirection);
         Ray ray = new Ray(rayStart,rayEnd);
         return this.traceRay(ray, recursionDepth -1);
 
@@ -79,10 +98,12 @@ public class ColorCalculator {
                         .add(planeVector2.multiply((j+coeff2)/numOfShadowRays));
                 Ray ray = new Ray(rayStart, intersection.position);
 
-                float acummelateShadow = 1;
-                for (Intersection inter:ray.getIntersections(surfaces)){
-                    if (inter.surface != intersection.surface)
-                        acummelateShadow *= inter.surface.material.transparency;
+                double acummelateShadow = 1;
+                double distanceToLight = intersection.position.distance(rayStart) - 0.0001; //epsilon
+                for (Intersection shadowRayIntesection:ray.getIntersections(surfaces)){
+                    if (shadowRayIntesection.position.distance(rayStart)<distanceToLight) {
+                        acummelateShadow *= shadowRayIntesection.surface.material.transparency;
+                    }
                 }
                 numOfHits += acummelateShadow;
 
@@ -106,6 +127,11 @@ public class ColorCalculator {
         return new MyVector(x,y,z);
     }
 
+    private MyVector reflectionDirection(MyVector reflectionSrc, Intersection intersection) {
+        MyVector directionToLight = new MyVector(intersection.position, reflectionSrc);
+        MyVector normal = intersection.surface.get_normal(intersection.position);
+        return (directionToLight.multiply(2).projectTo(normal)).subtract(directionToLight);
+    }
 
     //<editor-fold desc="basic color">
     private Color getBasicColorForLight(Light light, Intersection intersection) {
@@ -113,17 +139,16 @@ public class ColorCalculator {
         color = color.add(this.specularColor(light, intersection));
         color = color.add(this.diffuseColor(light, intersection));
 
-        return color.multiply(1-intersection.surface.material.transparency);
+        return color;
     }
 
     private Color specularColor(Light light, Intersection intersection){
-        MyVector directionToLight = new MyVector(intersection.position, light.position);
-        MyVector normal = intersection.surface.get_normal(intersection.position);
-        MyVector reflectionDirection =(directionToLight.multiply(2).projectTo(normal)).subtract(directionToLight);
+        MyVector reflectionDirection = reflectionDirection(light.position, intersection);
         double intensity = light.specularIntensity*
-                Math.pow(reflectionDirection.getAbsCosAngel(intersection.direction), intersection.surface.material.phong_coefficient);
+                Math.pow(reflectionDirection.getAbsCosAngel(intersection.directionToRayStart), intersection.surface.material.phong_coefficient);
         return intersection.surface.material.specular_color.multiply(light.color).multiply(intensity);
     }
+
 
     private Color diffuseColor(Light light, Intersection intersection){
         MyVector directionToLight = new MyVector(intersection.position, light.position);

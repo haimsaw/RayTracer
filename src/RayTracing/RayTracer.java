@@ -180,16 +180,14 @@ public class RayTracer {
 
         // Create a byte array to hold the pixel data:
         byte[] rgbData = new byte[this.imageWidth * this.imageHeight * 3];
-
+        ColorCalculator colorCalculator = new ColorCalculator(ShadowRaysAmount, surfaces,backgroundColor,lights);
         int height, width;
         for (height = 0; height < imageHeight; height++) {
             for (width = 0; width < imageWidth; width++) {
-                if (height==250 && width==250){
-                    int i=1+1;
-                }
+                System.out.printf("\r %f",100*((double) height*imageWidth+width)/(imageWidth*imageHeight));
                 Color color;
                 Ray ray = camera.getRay(height, width, screenToImageRatio);
-                color = new ColorCalculator(ShadowRaysAmount, surfaces,backgroundColor,lights).traceRay(ray, maxRecursion);
+                color = colorCalculator.traceRay(ray, maxRecursion);
                 this.setData(height, width, color, rgbData);
 
 
@@ -225,8 +223,6 @@ public class RayTracer {
         //</editor-fold>
 
     }
-
-
 
     private void setData(int height, int width, Color color, byte[] rgbData) {
         int startPosition = 3*(height*this.imageWidth +width);
