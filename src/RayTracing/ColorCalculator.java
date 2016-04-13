@@ -43,12 +43,11 @@ public class ColorCalculator {
     }
 
     private Color getReflectionColor(Intersection intersection, int recursionDepth) {
-        if (intersection.surface.material.reflection.isZero()){
+        if (intersection.surface.material.reflection.isZero() ){
             return new Color(0,0,0);
         }
         MyVector reflectionDirection = reflectionDirection(intersection.getDirectionToRayStart(),intersection);
-        MyVector rayDirection = intersection.directionToRayStart.multiply(-1);
-        MyVector rayStart = intersection.position.add(rayDirection.multiply(epsilon));
+        MyVector rayStart = intersection.position.add(reflectionDirection.multiply(epsilon));
         MyVector rayEnd = rayStart.add(reflectionDirection);
         Ray ray = new Ray(rayStart,rayEnd);
         return this.traceRay(ray, recursionDepth -1).multiply(intersection.surface.material.reflection);
@@ -128,9 +127,8 @@ public class ColorCalculator {
     }
 
     private MyVector reflectionDirection(MyVector reflectionSrc, Intersection intersection) {
-        MyVector directionToLight = new MyVector(intersection.position, reflectionSrc);
         MyVector normal = intersection.surface.get_normal(intersection.position);
-        return (directionToLight.multiply(2).projectTo(normal)).subtract(directionToLight);
+        return (reflectionSrc.multiply(2).projectTo(normal)).subtract(reflectionSrc).getNormalizedVector();
     }
 
     //<editor-fold desc="basic color">
@@ -143,7 +141,7 @@ public class ColorCalculator {
     }
 
     private Color specularColor(Light light, Intersection intersection){
-        MyVector reflectionDirection = reflectionDirection(light.position, intersection);
+        MyVector reflectionDirection = reflectionDirection(light.position.subtract(intersection.position), intersection);
         double intensity = light.specularIntensity*
                 Math.pow(reflectionDirection.getAbsCosAngel(intersection.directionToRayStart), intersection.surface.material.phong_coefficient);
         return intersection.surface.material.specular_color.multiply(light.color).multiply(intensity);

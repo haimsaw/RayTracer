@@ -183,8 +183,8 @@ public class RayTracer {
         ColorCalculator colorCalculator = new ColorCalculator(ShadowRaysAmount, surfaces,backgroundColor,lights);
         int height, width;
         for (height = 0; height < imageHeight; height++) {
+            System.out.printf("\r %f",100*((double) height)/imageWidth); //todo
             for (width = 0; width < imageWidth; width++) {
-                System.out.printf("\r %f",100*((double) height*imageWidth+width)/(imageWidth*imageHeight));
                 Color color;
                 Ray ray = camera.getRay(height, width, screenToImageRatio);
                 color = colorCalculator.traceRay(ray, maxRecursion);
