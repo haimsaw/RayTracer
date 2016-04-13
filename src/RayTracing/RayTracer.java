@@ -108,7 +108,7 @@ public class RayTracer {
 
                 if (code.equals("cam"))
                 {
-                    camera = Factory.createCamera(params, imageHeight, imageWidth); // TODO make sure image width = screen width
+                    camera = Factory.createCamera(params, imageHeight, imageWidth);
                     System.out.println(String.format("Parsed camera parameters (line %d)", lineNum));
                 }
                 else if (code.equals("set"))
@@ -183,7 +183,7 @@ public class RayTracer {
         ColorCalculator colorCalculator = new ColorCalculator(ShadowRaysAmount, surfaces,backgroundColor,lights);
         int height, width;
         for (height = 0; height < imageHeight; height++) {
-            System.out.printf("\r %f",100*((double) height)/imageWidth); //todo
+            System.out.printf("\r %f",100*((double) height)/imageWidth); //todo delete
             for (width = 0; width < imageWidth; width++) {
                 Color color;
                 Ray ray = camera.getRay(height, width, screenToImageRatio);

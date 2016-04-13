@@ -25,7 +25,6 @@ public class Ray {
     }
 
     Intersection getClosestIntersection(List<Surface> surfaces ) {
-        //todo no intersection
         LinkedList<Intersection> intersections = getIntersections(surfaces);
         if (intersections.isEmpty()){
             return null;

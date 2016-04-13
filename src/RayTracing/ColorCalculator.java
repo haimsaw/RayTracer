@@ -22,9 +22,6 @@ public class ColorCalculator {
 
     public Color traceRay(Ray ray, int recursionDepth) {
         Intersection intersection =  ray.getClosestIntersection(this.surfaces);
-        if (recursionDepth==9){
-            int i = 1;
-        }
         return intersection != null ? this.getColor(lights, recursionDepth, intersection) : backgroundColor;
 
     }
@@ -36,10 +33,10 @@ public class ColorCalculator {
         }
 
         double transparencyCoeff = intersection.surface.material.transparency;
-
-        Color transparencyColor = getTransparencyColor(intersection, recursionDepth);
+        color = color.multiply(1-transparencyCoeff);
+        Color transparencyColor = getTransparencyColor(intersection, recursionDepth).multiply(transparencyCoeff);
         Color reflectionColor = getReflectionColor(intersection, recursionDepth);
-        return transparencyColor.multiply(transparencyCoeff).add(color.multiply(1-transparencyCoeff)).add(reflectionColor);
+        return transparencyColor.add(color).add(reflectionColor);
     }
 
     private Color getReflectionColor(Intersection intersection, int recursionDepth) {
