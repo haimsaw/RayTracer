@@ -21,7 +21,6 @@ public class Color {
     //</editor-fold>
 
     public Color(double red, double green, double blue) {
-        // todo is double??
         this.red = red>1 ? 1 : red;
         this.green = green>1 ? 1 : green;
         this.blue = blue>1 ? 1 : blue;
@@ -54,4 +53,8 @@ public class Color {
    public String toSrtring(){
        return String.format("%f, %f, %f", red, green, blue);
    }
+
+    public boolean isZero(){
+        return red==0 && blue==0 && green==0;
+    }
 }

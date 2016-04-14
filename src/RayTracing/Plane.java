@@ -18,12 +18,12 @@ public class Plane extends Surface {
     public List<Intersection> getIntersections(Ray ray) {
         LinkedList<Intersection> intersections = new LinkedList<Intersection>();
         /**
-         * intersection - ray.start = lambda*ray.direction
+         * intersection - ray.start = lambda*ray.directionToRayStart
          * intersection dot this.normal = this.offset
          *
          * ->
          * lambda = (this.offset - ray.start dot this.normal)/ray.diration dot this.normal
-         * intersection = lambda*ray.direction + ray.start
+         * intersection = lambda*ray.directionToRayStart + ray.start
          */
 
         double lambda = (this.offset - ray.getStartPoint().dotProduct(normal))/(ray.getDirection().dotProduct(normal));

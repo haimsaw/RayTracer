@@ -25,7 +25,7 @@ class Factory {
         screenDistance = Double.parseDouble(params[9]);
         screenWidth = Double.parseDouble(params[10]);
         double proportion = (double) imageHeight / (double) imageWidth;
-        screenHeight = proportion * screenWidth; //TODO make sure
+        screenHeight = proportion * screenWidth;
 
 
         Camera camera = new Camera(position, lookAt, up, screenDistance, screenWidth, screenHeight);

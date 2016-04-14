@@ -25,11 +25,7 @@ public class Ray {
     }
 
     Intersection getClosestIntersection(List<Surface> surfaces ) {
-        //todo no intersection
-        LinkedList<Intersection> intersections = new LinkedList<>();
-        for (Surface surface : surfaces){
-            intersections.addAll(surface.getIntersections(this));
-        }
+        LinkedList<Intersection> intersections = getIntersections(surfaces);
         if (intersections.isEmpty()){
             return null;
         }
@@ -41,6 +37,14 @@ public class Ray {
                     }
                     return 1;
                 });
+    }
+
+    public LinkedList<Intersection> getIntersections(List<Surface> surfaces) {
+        LinkedList<Intersection> intersections = new LinkedList<>();
+        for (Surface surface : surfaces){
+            intersections.addAll(surface.getIntersections(this));
+        }
+        return intersections;
     }
 
     public MyVector getPointFromLambda(double lambda){
