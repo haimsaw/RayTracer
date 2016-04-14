@@ -26,7 +26,7 @@ public class ColorCalculator {
 
     }
 
-    public Color getColor(List<Light> lights, int recursionDepth,Intersection intersection ) {
+    private Color getColor(List<Light> lights, int recursionDepth,Intersection intersection ) {
         Color color = getBasicColor(lights, intersection);
         if (recursionDepth == 0 ){
             return color;
@@ -66,19 +66,13 @@ public class ColorCalculator {
     private Color getBasicColor(List<Light> lights, Intersection intersection) {
         Color color = new Color(0,0,0);
         for (Light light : lights){
-            color = color.add(this.getColorForLight(light, intersection));
+            color = color.add(getBasicColorForLight(light, intersection).multiply(getShadowCoeff(light, intersection)));
         }
         return color;
     }
 
-    private Color getColorForLight(Light light, Intersection intersection) {
-        Color color = getBasicColorForLight(light,intersection);
-        //return color;
-        return color.multiply(getShadowCoeff(light, intersection));
-
-    }
-
     private double getShadowCoeff(Light light, Intersection intersection) {
+
         MyVector toIntersection = new MyVector(light.position, intersection.position);
         double planeOffset = toIntersection.dotProduct(light.position);
         MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset).getNormalizedVector().multiply(light.radius);
@@ -95,7 +89,8 @@ public class ColorCalculator {
                 Ray ray = new Ray(rayStart, intersection.position);
 
                 double acummelateShadow = 1;
-                double distanceToLight = intersection.position.distance(rayStart) - 0.0001; //epsilon
+                double distanceToLight = intersection.position.distance(rayStart) - 0.00001; //epsilon
+
                 for (Intersection shadowRayIntesection:ray.getIntersections(surfaces)){
                     if (shadowRayIntesection.position.distance(rayStart)<distanceToLight) {
                         acummelateShadow *= shadowRayIntesection.surface.material.transparency;
@@ -105,7 +100,9 @@ public class ColorCalculator {
 
             }
         }
-        //System.out.println((double) numOfHits/numOfShadowRays);
+        if (intersection.surface instanceof Cylinder && numOfHits == 36){
+            int i = 1;
+        }
         return 1-light.shadow + light.shadow*numOfHits/(numOfShadowRays*numOfShadowRays);
     }
 
@@ -143,7 +140,6 @@ public class ColorCalculator {
                 Math.pow(reflectionDirection.getAbsCosAngel(intersection.directionToRayStart), intersection.surface.material.phong_coefficient);
         return intersection.surface.material.specular_color.multiply(light.color).multiply(intensity);
     }
-
 
     private Color diffuseColor(Light light, Intersection intersection){
         MyVector directionToLight = new MyVector(intersection.position, light.position);
