@@ -76,7 +76,8 @@ public class MyVector {
     }
 
     public double getAbsCosAngel(MyVector other){
-        return Math.abs(this.getNormalizedVector().dotProduct(other.getNormalizedVector()));
+        double cosnAngle = this.getNormalizedVector().dotProduct(other.getNormalizedVector());
+        return cosnAngle > 0 ? cosnAngle : 0;
     }
     //</editor-fold>
 
