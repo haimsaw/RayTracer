@@ -91,6 +91,11 @@ public class MyVector {
 
     }
 
+    public boolean equals(MyVector other){
+        double epsilon = 0.0001;
+        return Math.abs(this.x - other.x)<epsilon &&  Math.abs(this.x - other.x)<epsilon && Math.abs(this.x - other.x)<epsilon ;
+    }
+
     //</editor-fold>
 
     public double get_x() {

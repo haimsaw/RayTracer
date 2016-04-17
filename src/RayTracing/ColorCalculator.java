@@ -10,7 +10,6 @@ public class ColorCalculator {
     private double epsilon;
     Color backgroundColor;
     public List<Light> lights;
-    long counter;
 
 
     public ColorCalculator(int numOfShadowRays, List<Surface> surfaces, Color backgroundColor, List<Light> lights) {
@@ -19,7 +18,7 @@ public class ColorCalculator {
         epsilon = 0.0001;
         this.backgroundColor =backgroundColor;
         this.lights = lights;
-        counter = 0;
+
     }
 
 
@@ -30,7 +29,6 @@ public class ColorCalculator {
     }
 
     private Color getColor(List<Light> lights, int recursionDepth,Intersection intersection ) {
-        counter ++;
         Color color = getBasicColor(lights, intersection);
         if (recursionDepth == 0 ){
             return color;

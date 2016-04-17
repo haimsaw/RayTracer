@@ -193,8 +193,7 @@ public class RayTracer {
 
             }
         }
-        System.out.println();
-        System.out.println(colorCalculator.counter);
+
 
 
 

@@ -13,7 +13,7 @@ public abstract class Surface {
 
     public MyVector getNormalWithDirection(MyVector point, MyVector directionToRayStart){
             MyVector normal =this.getNormal(point);
-            if (Math.acos(normal.getCosAngel(directionToRayStart))>90){
+            if (Math.acos(normal.getCosAngel(directionToRayStart))>Math.PI/2){
                 return normal.multiply(-1);
             }
             return normal;
