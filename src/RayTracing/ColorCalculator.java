@@ -145,13 +145,13 @@ public class ColorCalculator {
     private Color specularColor(Light light, Intersection intersection){
         MyVector reflectionDirection = reflectionDirection(light.position.subtract(intersection.position).getNormalizedVector(), intersection);
         double intensity = light.specularIntensity*
-                Math.pow(reflectionDirection.getZeroOrCosAngel(intersection.directionToRayStart), intersection.surface.material.phong_coefficient);
+                Math.pow(reflectionDirection.getCosAngel(intersection.directionToRayStart), intersection.surface.material.phong_coefficient);
         return intersection.surface.material.specular_color.multiply(light.color).multiply(intensity);
     }
 
     private Color diffuseColor(Light light, Intersection intersection){
         MyVector directionToLight = new MyVector(intersection.position, light.position);
-        double intensity = intersection.surface.getNormalToDirection(intersection.position, intersection.directionToRayStart).getZeroOrCosAngel(directionToLight);
+        double intensity = intersection.surface.getNormalToDirection(intersection.position, intersection.directionToRayStart).getCosAngel(directionToLight);
         return light.color.multiply(intersection.surface.material.defuse_color).multiply(intensity);
     }
     //</editor-fold>
