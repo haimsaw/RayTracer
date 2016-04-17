@@ -19,8 +19,8 @@ public class Cylinder extends Rounded {
     }
 
     @Override
-    public MyVector get_normal(MyVector point) {
-        if (isPointOnHead(point)){
+    public MyVector getNormal(MyVector point) {
+        if (isPointOnHead(point)) {
             return axis;
         }
         MyVector tmp = point.subtract(centerPosition);

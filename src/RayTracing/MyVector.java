@@ -75,10 +75,22 @@ public class MyVector {
         return new Matrix(array);
     }
 
-    public double getAbsCosAngel(MyVector other){
-        double cosnAngle = this.getNormalizedVector().dotProduct(other.getNormalizedVector());
+    public double getZeroOrCosAngel(MyVector other){
+        double cosnAngle = this.getCosAngel(other);
         return cosnAngle > 0 ? cosnAngle : 0;
     }
+
+    public double getCosAngel(MyVector other){
+        return this.getNormalizedVector().dotProduct(other.getNormalizedVector());
+
+    }
+
+
+    public double getAbsCosAngel(MyVector other){
+        return Math.abs(this.getCosAngel(other));
+
+    }
+
     //</editor-fold>
 
     public double get_x() {

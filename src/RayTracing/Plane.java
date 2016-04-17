@@ -37,7 +37,7 @@ public class Plane extends Surface {
     }
 
     @Override
-    public MyVector get_normal(MyVector point) {
+    public MyVector getNormal(MyVector point) {
         return normal.getNormalizedVector();
     }
 }
