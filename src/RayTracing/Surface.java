@@ -11,7 +11,7 @@ public abstract class Surface {
 
     public abstract List<Intersection> getIntersections(Ray ray);
 
-    public MyVector getNormalToDirection(MyVector point, MyVector directionToRayStart){
+    public MyVector getNormalWithDirection(MyVector point, MyVector directionToRayStart){
             MyVector normal =this.getNormal(point);
             if (Math.acos(normal.getCosAngel(directionToRayStart))>90){
                 return normal.multiply(-1);
