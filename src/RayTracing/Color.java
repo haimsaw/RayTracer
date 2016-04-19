@@ -57,4 +57,9 @@ public class Color {
     public boolean isZero(){
         return red==0 && blue==0 && green==0;
     }
+
+
+    public String toString(){
+        return String.format("%f, %f, %f",red,green,blue);
+    }
 }

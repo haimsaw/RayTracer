@@ -15,7 +15,7 @@ public class ColorCalculator {
     public ColorCalculator(int numOfShadowRays, List<Surface> surfaces, Color backgroundColor, List<Light> lights) {
         this.surfaces = surfaces;
         this.numOfShadowRays = numOfShadowRays ;
-        epsilon = 0.0001;
+        epsilon = 0.000001;
         this.backgroundColor =backgroundColor;
         this.lights = lights;
 
@@ -77,12 +77,12 @@ public class ColorCalculator {
 
         MyVector toIntersection = new MyVector(light.position, intersection.position);
         double planeOffset = toIntersection.dotProduct(light.position);
-        MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset).getNormalizedVector().multiply(light.radius);
+        MyVector planeVector1 = getPlaneVector(toIntersection, planeOffset).multiply(light.radius);
         MyVector planeVector2 = toIntersection.crossProduct(planeVector1).getNormalizedVector().multiply(light.radius);
         MyVector rectStart = light.position.subtract(planeVector1.multiply(0.5)).subtract(planeVector1.multiply(0.5));
         Random r = new Random();
         double numOfHits = 0;
-        for (int i = 0; i<numOfShadowRays; i++) {
+        for (int i = 0; i < numOfShadowRays; i++) {
             for (int j = 0; j < numOfShadowRays; j++) {
                 double coeff1 = r.nextDouble();
                 double coeff2 = r.nextDouble();
@@ -91,7 +91,7 @@ public class ColorCalculator {
                 Ray ray = new Ray(rayStart, intersection.position);
 
                 double acummelateShadow = 1;
-                double distanceToLight = intersection.position.distance(rayStart) - 0.00001; //epsilon
+                double distanceToLight = intersection.position.distance(rayStart) - epsilon; //epsilon
 
                 for (Intersection shadowRayIntesection:ray.getIntersections(surfaces)){
                     if (shadowRayIntesection.position.distance(rayStart)<distanceToLight) {
@@ -102,9 +102,11 @@ public class ColorCalculator {
 
             }
         }
-        if (intersection.surface instanceof Cylinder && numOfHits == 36){
+        /**
+        if (numOfHits == 36 && intersection.surface instanceof Cylinder && ((Cylinder) intersection.surface).isPointOnHead(intersection.position)){
+            System.out.println(1);
             int i = 1;
-        }
+        }**/
         return 1-light.shadow + light.shadow*numOfHits/(numOfShadowRays*numOfShadowRays);
     }
 
@@ -112,14 +114,15 @@ public class ColorCalculator {
         double x=0,y=0,z=0;
 
         if (normal.get_z() != 0) {
-            x = normal.get_x() + 1;
-            y = normal.get_y() + 1;
-            z = (offset - x * normal.get_y() - y * normal.get_y()) / normal.get_z();
+            z = offset ;
+        }
+        else if(normal.get_y() != 0) {
+            y = offset;
         }
         else {
-            //TODO
+            x = offset;
         }
-        return new MyVector(x,y,z);
+        return new MyVector(x,y,z).getNormalizedVector();
     }
     //</editor-fold>
 
