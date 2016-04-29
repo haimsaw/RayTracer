@@ -79,13 +79,13 @@ public class Cylinder extends Rounded {
         }
     }
 
-    private boolean isPointOnHead(MyVector point, boolean isUpper){
+    public boolean isPointOnHead(MyVector point, boolean isUpper){
         MyVector center = isUpper ? centerPosition.add(axis.multiply(length/2)) : centerPosition.subtract(axis.multiply(length / 2)) ;
         return center.distance(point) <= radius ;
 
     }
 
-    private boolean isPointOnHead(MyVector point){
+    public boolean isPointOnHead(MyVector point){
         return isPointOnHead(point, true) || isPointOnHead(point, false);
     }
     //</editor-fold>

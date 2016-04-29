@@ -10,13 +10,13 @@ public class Plane extends Surface {
 
     public Plane(MyVector normal, double offset, Material material) {
         super(material);
-        this.normal = normal;
+        this.normal = normal.getNormalizedVector();
         this.offset = offset;
     }
 
     @Override
     public List<Intersection> getIntersections(Ray ray) {
-        LinkedList<Intersection> intersections = new LinkedList<Intersection>();
+        LinkedList<Intersection> intersections = new LinkedList<>();
         /**
          * intersection - ray.start = lambda*ray.directionToRayStart
          * intersection dot this.normal = this.offset
